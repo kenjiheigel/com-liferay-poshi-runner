@@ -52,13 +52,11 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import org.dom4j.Document;
@@ -81,6 +79,10 @@ public class PoshiRunnerContext {
 		_resourceURLs.clear();
 		_rootElements.clear();
 		_seleniumParameterCounts.clear();
+	}
+
+	public static String getDefaultNamespace() {
+		return _DEFAULT_NAMESPACE;
 	}
 
 	public static String getFilePathFromFileName(
@@ -148,9 +150,9 @@ public class PoshiRunnerContext {
 		return _rootElements.get("macro#" + namespace + "." + className);
 	}
 
-	public static String getNamespace(String filePath) {
+	public static String getNamespaceFromFilePath(String filePath) {
 		if (Validator.isNull(filePath)) {
-			return _getDefaultNamespace();
+			return getDefaultNamespace();
 		}
 
 		for (Map.Entry<String, String> entry : _filePaths.entrySet()) {
@@ -165,7 +167,7 @@ public class PoshiRunnerContext {
 			}
 		}
 
-		return _getDefaultNamespace();
+		return getDefaultNamespace();
 	}
 
 	public static String getPathLocator(
@@ -175,7 +177,7 @@ public class PoshiRunnerContext {
 			namespace + "." + pathLocatorKey);
 
 		String className =
-			PoshiRunnerGetterUtil.getClassNameFromClassCommandName(
+			PoshiRunnerGetterUtil.getClassNameFromNamespacedClassCommandName(
 				pathLocatorKey);
 
 		if ((pathLocator == null) &&
@@ -184,8 +186,9 @@ public class PoshiRunnerContext {
 			String pathExtension = _pathExtensions.get(
 				namespace + "." + className);
 			String commandName =
-				PoshiRunnerGetterUtil.getCommandNameFromClassCommandName(
-					pathLocatorKey);
+				PoshiRunnerGetterUtil.
+					getCommandNameFromNamespacedClassCommandName(
+						pathLocatorKey);
 
 			return getPathLocator(pathExtension + "#" + commandName, namespace);
 		}
@@ -218,16 +221,12 @@ public class PoshiRunnerContext {
 			"test-case#" + namespace + "." + classCommandName);
 	}
 
-	public static String getTestCaseCommandName() {
-		return _testCaseCommandName;
-	}
-
 	public static String getTestCaseDescription(String classCommandName) {
 		return _testCaseDescriptions.get(classCommandName);
 	}
 
-	public static String getTestCaseName() {
-		return _testCaseName;
+	public static String getTestCaseNamespacedClassCommandName() {
+		return _testCaseNamespacedClassCommandName;
 	}
 
 	public static List<String> getTestCaseRequiredPropertyNames() {
@@ -241,10 +240,10 @@ public class PoshiRunnerContext {
 	}
 
 	public static boolean isCommandElement(
-		String classType, String commandElementKey, String namespace) {
+		String classType, String classCommandName, String namespace) {
 
 		return _commandElements.containsKey(
-			classType + "#" + namespace + "." + commandElementKey);
+			classType + "#" + namespace + "." + classCommandName);
 	}
 
 	public static boolean isPathLocator(
@@ -285,27 +284,11 @@ public class PoshiRunnerContext {
 		_readTestToggleFiles();
 	}
 
-	public static void setTestCaseCommandName(String testCaseCommandName) {
-		_testCaseCommandName = testCaseCommandName;
-	}
+	public static void setTestCaseNamespacedClassCommandName(
+		String testCaseNamespacedClassCommandName) {
 
-	public static void setTestCaseName(String testCaseName) {
-		_testCaseName = testCaseName;
-	}
-
-	private static void _addComponentClassCommandNames(
-		String componentName, String classCommandName) {
-
-		Set<String> classCommandNames = new TreeSet<>();
-
-		classCommandNames.add(classCommandName);
-
-		if (_componentClassCommandNames.containsKey(componentName)) {
-			classCommandNames.addAll(
-				_componentClassCommandNames.get(componentName));
-		}
-
-		_componentClassCommandNames.put(componentName, classCommandNames);
+		_testCaseNamespacedClassCommandName =
+			testCaseNamespacedClassCommandName;
 	}
 
 	private static int _getAllocatedTestGroupSize(int testCount) {
@@ -390,10 +373,6 @@ public class PoshiRunnerContext {
 		}
 
 		return classCommandName;
-	}
-
-	private static String _getDefaultNamespace() {
-		return _DEFAULT_NAMESPACE;
 	}
 
 	private static List<URL> _getPoshiURLs(
@@ -486,15 +465,18 @@ public class PoshiRunnerContext {
 
 		PQLEntity pqlEntity = PQLEntityFactory.newPQLEntity(propertyQuery);
 
-		for (String testCaseClassCommandName : _testCaseClassCommandNames) {
-			Properties properties = _classCommandNamePropertiesMap.get(
-				testCaseClassCommandName);
+		for (String testCaseNamespacedClassCommandName :
+				_testCaseNamespacedClassCommandNames) {
+
+			Properties properties =
+				_namespacedClassCommandNamePropertiesMap.get(
+					testCaseNamespacedClassCommandName);
 
 			Boolean pqlResultBoolean = (Boolean)pqlEntity.getPQLResult(
 				properties);
 
 			if (pqlResultBoolean) {
-				classCommandNames.add(testCaseClassCommandName);
+				classCommandNames.add(testCaseNamespacedClassCommandName);
 			}
 		}
 
@@ -524,7 +506,7 @@ public class PoshiRunnerContext {
 			Properties properties = new Properties();
 
 			properties.putAll(
-				_classCommandNamePropertiesMap.get(classCommandName));
+				_namespacedClassCommandNamePropertiesMap.get(classCommandName));
 
 			if (Validator.isNotNull(
 					PropsValues.TEST_BATCH_GROUP_IGNORE_REGEX)) {
@@ -541,8 +523,9 @@ public class PoshiRunnerContext {
 			}
 
 			String simpleClassCommandName =
-				PoshiRunnerGetterUtil.getSimpleClassCommandName(
-					classCommandName);
+				PoshiRunnerGetterUtil.
+					getClassCommandNameFromNamespacedClassCommandName(
+						classCommandName);
 
 			multimap.put(properties, simpleClassCommandName);
 		}
@@ -642,8 +625,9 @@ public class PoshiRunnerContext {
 
 		for (String classCommandName : classCommandNames) {
 			simpleClassCommandNames.add(
-				PoshiRunnerGetterUtil.getSimpleClassCommandName(
-					classCommandName));
+				PoshiRunnerGetterUtil.
+					getClassCommandNameFromNamespacedClassCommandName(
+						classCommandName));
 		}
 
 		List<List<String>> partitions = Lists.partition(
@@ -693,13 +677,15 @@ public class PoshiRunnerContext {
 	}
 
 	private static void _initComponentCommandNamesMap() {
-		for (String testCaseNamespaceClassName : _testCaseNamespaceClassNames) {
+		for (String testCaseNamespacedClassName :
+				_testCaseNamespacedClassNames) {
+
 			String className =
-				PoshiRunnerGetterUtil.getClassNameFromNamespaceClassName(
-					testCaseNamespaceClassName);
+				PoshiRunnerGetterUtil.getClassNameFromNamespacedClassName(
+					testCaseNamespacedClassName);
 			String namespace =
-				PoshiRunnerGetterUtil.getNamespaceFromNamespaceClassName(
-					testCaseNamespaceClassName);
+				PoshiRunnerGetterUtil.getNamespaceFromNamespacedClassName(
+					testCaseNamespacedClassName);
 
 			Element rootElement = getTestCaseRootElement(className, namespace);
 
@@ -730,12 +716,8 @@ public class PoshiRunnerContext {
 						continue;
 					}
 
-					_addComponentClassCommandNames(
-						componentName,
-						testCaseNamespaceClassName + "#" + extendsCommandName);
-
 					_commandElements.put(
-						"test-case#" + testCaseNamespaceClassName + "#" +
+						"test-case#" + testCaseNamespacedClassName + "#" +
 							extendsCommandName,
 						extendsCommandElement);
 				}
@@ -752,26 +734,11 @@ public class PoshiRunnerContext {
 					continue;
 				}
 
-				String classCommandName =
-					testCaseNamespaceClassName + "#" + commandName;
+				String namespacedClassCommandName =
+					testCaseNamespacedClassName + "#" + commandName;
 
-				_testCaseClassCommandNames.add(classCommandName);
-
-				if (commandElement.attributeValue("known-issues") != null) {
-					for (String productName : _productNames) {
-						if (componentName.startsWith(productName)) {
-							_addComponentClassCommandNames(
-								productName + "-known-issues",
-								classCommandName);
-
-							break;
-						}
-					}
-				}
-				else {
-					_addComponentClassCommandNames(
-						componentName, classCommandName);
-				}
+				_testCaseNamespacedClassCommandNames.add(
+					namespacedClassCommandName);
 			}
 		}
 	}
@@ -1056,7 +1023,7 @@ public class PoshiRunnerContext {
 			filePath);
 
 		if (classType.equals("test-case")) {
-			_testCaseNamespaceClassNames.add(namespace + "." + className);
+			_testCaseNamespacedClassNames.add(namespace + "." + className);
 
 			if (rootElement.element("set-up") != null) {
 				Element setUpElement = rootElement.element("set-up");
@@ -1090,42 +1057,43 @@ public class PoshiRunnerContext {
 			for (Element commandElement : commandElements) {
 				String commandName = commandElement.attributeValue("name");
 
-				String commandKey =
-					namespace + "." + className + "#" + commandName;
+				String classCommandName = className + "#" + commandName;
 
-				if (isCommandElement(classType, commandName, namespace)) {
+				if (isCommandElement(classType, classCommandName, namespace)) {
 					System.out.println(
 						"Duplicate command name\n" + filePath + ":" +
 							commandElement.attributeValue("line-number"));
 				}
 
-				_commandElements.put(
-					classType + "#" + commandKey, commandElement);
+				String namespacedClassCommandName =
+					namespace + "." + className + "#" + commandName;
 
-				String classCommandName = className + "#" + commandName;
+				_commandElements.put(
+					classType + "#" + namespacedClassCommandName,
+					commandElement);
 
 				_commandSummaries.put(
-					classType + "#" + commandKey,
+					classType + "#" + namespacedClassCommandName,
 					_getCommandSummary(
 						classCommandName, classType, commandElement,
 						rootElement));
 
 				_commandReturns.put(
-					classType + "#" + commandKey,
+					classType + "#" + namespacedClassCommandName,
 					_getCommandReturns(commandElement));
 
 				if (classType.equals("test-case")) {
 					Properties properties = _getClassCommandNameProperties(
 						rootElement, commandElement);
 
-					_classCommandNamePropertiesMap.put(
+					_namespacedClassCommandNamePropertiesMap.put(
 						namespace + "." + classCommandName, properties);
 
 					if (Validator.isNotNull(
 							commandElement.attributeValue("description"))) {
 
 						_testCaseDescriptions.put(
-							commandKey,
+							namespacedClassCommandName,
 							commandElement.attributeValue("description"));
 					}
 				}
@@ -1191,27 +1159,7 @@ public class PoshiRunnerContext {
 				sb.append(componentNameKey);
 
 				sb.append("=");
-
-				Set<String> classCommandNames = _componentClassCommandNames.get(
-					componentName);
-
-				if (Validator.isNotNull(classCommandNames) &&
-					!classCommandNames.isEmpty()) {
-
-					Iterator<String> iterator = classCommandNames.iterator();
-
-					while (iterator.hasNext()) {
-						sb.append(iterator.next());
-
-						if (iterator.hasNext()) {
-							sb.append(" ");
-						}
-					}
-				}
-				else {
-					sb.append(PropsValues.TEST_NAME);
-				}
-
+				sb.append(PropsValues.TEST_NAME);
 				sb.append("\n");
 			}
 		}
@@ -1222,15 +1170,20 @@ public class PoshiRunnerContext {
 	private static void _writeTestGeneratedProperties() throws Exception {
 		StringBuilder sb = new StringBuilder();
 
-		for (String testCaseClassCommandName : _testCaseClassCommandNames) {
-			Properties properties = _classCommandNamePropertiesMap.get(
-				testCaseClassCommandName);
+		for (String testCaseNamespacedClassCommandName :
+				_testCaseNamespacedClassCommandNames) {
+
+			Properties properties =
+				_namespacedClassCommandNamePropertiesMap.get(
+					testCaseNamespacedClassCommandName);
 			String testClassName =
-				PoshiRunnerGetterUtil.getClassNameFromClassCommandName(
-					testCaseClassCommandName);
+				PoshiRunnerGetterUtil.
+					getClassNameFromNamespacedClassCommandName(
+						testCaseNamespacedClassCommandName);
 			String testCommandName =
-				PoshiRunnerGetterUtil.getCommandNameFromClassCommandName(
-					testCaseClassCommandName);
+				PoshiRunnerGetterUtil.
+					getCommandNameFromNamespacedClassCommandName(
+						testCaseNamespacedClassCommandName);
 
 			for (String propertyName : properties.stringPropertyNames()) {
 				sb.append(testClassName);
@@ -1252,20 +1205,18 @@ public class PoshiRunnerContext {
 	private static final String _TEST_BASE_DIR_NAME =
 		PoshiRunnerGetterUtil.getCanonicalPath(PropsValues.TEST_BASE_DIR_NAME);
 
-	private static final Map<String, Properties>
-		_classCommandNamePropertiesMap = new HashMap<>();
 	private static final Map<String, Element> _commandElements =
 		new HashMap<>();
 	private static final Map<String, List<String>> _commandReturns =
 		new HashMap<>();
 	private static final Map<String, String> _commandSummaries =
 		new HashMap<>();
-	private static final Map<String, Set<String>> _componentClassCommandNames =
-		new TreeMap<>();
 	private static final Set<String> _componentNames = new TreeSet<>();
 	private static final Map<String, String> _filePaths = new HashMap<>();
 	private static final Map<String, Integer> _functionLocatorCounts =
 		new HashMap<>();
+	private static final Map<String, Properties>
+		_namespacedClassCommandNamePropertiesMap = new HashMap<>();
 	private static final List<String> _namespaces = new ArrayList<>();
 	private static final Map<String, String> _pathExtensions = new HashMap<>();
 	private static final Map<String, String> _pathLocators = new HashMap<>();
@@ -1276,13 +1227,12 @@ public class PoshiRunnerContext {
 		new HashMap<>();
 	private static final List<String> _testCaseAvailablePropertyNames =
 		new ArrayList<>();
-	private static final List<String> _testCaseClassCommandNames =
-		new ArrayList<>();
-	private static String _testCaseCommandName;
 	private static final Map<String, String> _testCaseDescriptions =
 		new HashMap<>();
-	private static String _testCaseName;
-	private static final List<String> _testCaseNamespaceClassNames =
+	private static String _testCaseNamespacedClassCommandName;
+	private static final List<String> _testCaseNamespacedClassCommandNames =
+		new ArrayList<>();
+	private static final List<String> _testCaseNamespacedClassNames =
 		new ArrayList<>();
 	private static final List<String> _testCaseRequiredPropertyNames =
 		new ArrayList<>();
