@@ -565,6 +565,45 @@ public class StringUtil {
 		return s.split(delimiter);
 	}
 
+	public static List<String> splitByKeys(String s, String[] keys) {
+		List keyIndexes = new ArrayList<>();
+
+		for (String key : keys) {
+			int index = s.indexOf(key);
+
+			while (index >= 0) {
+				keyIndexes.add(index);
+
+				index = s.indexOf(key, index + 1);
+			}
+		}
+
+		if (!keyIndexes.contains(0)) {
+			keyIndexes.add(0);
+		}
+
+		if (!keyIndexes.contains(s.length())) {
+			keyIndexes.add(s.length());
+		}
+
+		Collections.sort(keyIndexes);
+
+		List<String> substrings = new ArrayList<>();
+
+		for (int i = 0; i < keyIndexes.size(); i++) {
+			if ((i + 1) == keyIndexes.size()) {
+				continue;
+			}
+
+			String substring = s.substring(
+			(int)keyIndexes.get(i), (int)keyIndexes.get(i + 1));
+
+			substrings.add(substring);
+		}
+
+		return substrings;
+	}
+
 	public static boolean startsWith(String s, String start) {
 		if ((s == null) || (start == null)) {
 			return false;
