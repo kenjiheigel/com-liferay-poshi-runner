@@ -63,7 +63,7 @@ public class PoshiProseMacroMatchingString {
 		poshiProseMacroMatchingStringMap = new HashMap<>();
 
 	private static String _toString(String matchingString) {
-		return matchingString.replaceAll("\\${.+?}", "\"\"");
+		return matchingString.replaceAll("\\$\\{.+?\\}", "\"\"");
 	}
 
 	private PoshiProseMacroMatchingString(
@@ -74,7 +74,7 @@ public class PoshiProseMacroMatchingString {
 	}
 
 	private static final Pattern _matchingStringParameterPattern =
-		Pattern.compile("\\${(.+?)}");
+		Pattern.compile("\\$\\{(.+?)\\}");
 
 	private final String _macroNamespacedClassCommandName;
 	private final String _matchingString;
