@@ -4,11 +4,11 @@
 	</command>
 
 	<command matching-string="I search for ${input}" name="search">
-		<execute function="Type" locator1="//input[@title='Search']" value="${input}"/>
-		<execute function="Click" locator1="//input[@title='Search']" value="${input}"/>
+		<execute function="Type" locator1="//input[@title='Search']" value="${input}" />
+		<execute function="Click" locator1="//input[@title='Search']" value="${input}" />
 	</command>
 
 	<command matching-string="I should see ${assert}" name="open">
-		<execute function="AssertTextPresent" url="${assert}" />
+		<execute function="AssertTextPresent" locator1="//body" value="${assert}" />
 	</command>
 </definition>
