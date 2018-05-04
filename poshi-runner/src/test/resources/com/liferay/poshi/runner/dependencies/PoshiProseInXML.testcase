@@ -1,0 +1,15 @@
+<definition>
+	<command name="CatGIFSearch">
+		<execute macro="Google#open">
+			<var name="url" value="http://www.google.com" />
+		</execute>
+
+		<execute macro="Google#search">
+			<var name="input" value="cat gifs" />
+		</execute>
+
+		<execute macro="Google#assertSearch">
+			<var name="assert" value="cat gifs" />
+		</execute>
+	</command>
+</definition>

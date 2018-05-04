@@ -1,0 +1,4 @@
+Scenario: CatGIFSearch
+    When I open the URL "http://www.google.com"
+    And I search for "cat gifs"
+    Then I should see "cat gifs"
