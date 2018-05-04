@@ -55,6 +55,16 @@ public class PoshiElementFactoryTest {
 	}
 
 	@Test
+	public void testProseToXML() throws Exception {
+		String poshiProse = FileUtil.read(_POSHI_PROSE_FILE_PATH);
+		String poshiProseInXML = FileUtil.read(_POSHI_PROSE_IN_XML_FILE_PATH);
+
+		if (!poshiProse.equals(poshiProseInXML)) {
+			throw new Exception("Poshi Prose could not be translated");
+		}
+	}
+
+	@Test
 	public void testPoshiToReadableToXML() throws Exception {
 		PoshiElement poshiElement =
 			(PoshiElement)PoshiNodeFactory.newPoshiNodeFromFile(
@@ -147,6 +157,14 @@ public class PoshiElementFactoryTest {
 			_removeWhiteSpaceTextNodes(childElement);
 		}
 	}
+
+	private static final String _POSHI_PROSE_FILE_PATH =
+		"src/test/resources/com/liferay/poshi/runner/dependencies" +
+		"/PoshiProse.prose";
+
+	private static final String _POSHI_PROSE_IN_XML_FILE_PATH =
+		"src/test/resources/com/liferay/poshi/runner/dependencies" +
+		"/PoshiProseInXML.prose";
 
 	private static final String _POSHI_TEST_FILE_PATH =
 		"src/test/resources/com/liferay/poshi/runner/dependencies" +
