@@ -159,12 +159,12 @@ public class PoshiElementFactoryTest {
 	}
 
 	private static final String _POSHI_PROSE_FILE_PATH =
-		"src/test/resources/com/liferay/poshi/runner/dependencies" +
+		"src/test/resources/com/liferay/poshi/runner/dependencies/prose" +
 		"/PoshiProse.prose";
 
 	private static final String _POSHI_PROSE_IN_XML_FILE_PATH =
-		"src/test/resources/com/liferay/poshi/runner/dependencies" +
-		"/PoshiProseInXML.prose";
+		"src/test/resources/com/liferay/poshi/runner/dependencies/prose" +
+		"/PoshiProseInXML.testcase";
 
 	private static final String _POSHI_TEST_FILE_PATH =
 		"src/test/resources/com/liferay/poshi/runner/dependencies" +
