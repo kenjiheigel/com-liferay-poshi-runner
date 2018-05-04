@@ -1,0 +1,14 @@
+<definition>
+	<command matching-string="I open the URL ${url}" name="open">
+		<execute function="Open" locator1="${url}" />
+	</command>
+
+	<command matching-string="I search for ${input}" name="search">
+		<execute function="Type" locator1="//input[@title='Search']" value="${input}"/>
+		<execute function="Click" locator1="//input[@title='Search']" value="${input}"/>
+	</command>
+
+	<command matching-string="I should see ${assert}" name="open">
+		<execute function="AssertTextPresent" url="${assert}" />
+	</command>
+</definition>
