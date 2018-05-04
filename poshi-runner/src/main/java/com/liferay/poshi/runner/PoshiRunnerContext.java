@@ -1115,10 +1115,18 @@ public class PoshiRunnerContext {
 				if (classType.equals("macro") && matchingString != null &&
 					!matchingString.isEmpty()) {
 
-					PoshiProseMacroMatchingString.
-						getPoshiProseMacroMatchingString(
-							commandElement.attributeValue("matching-string"),
-							namespacedClassCommandName);
+					PoshiProseMacroMatchingString ppmms = 
+						PoshiProseMacroMatchingString.
+							getPoshiProseMacroMatchingString(
+								commandElement.attributeValue(
+									"matching-string"),
+								namespacedClassCommandName);
+
+					System.out.println("Created new PoshiProseMacroMatchingString");
+					System.out.println(ppmms);
+					System.out.println(ppmms.getMatchingString());
+					System.out.println(ppmms.getMacroNamespacedClassCommandName());
+					System.out.println("");
 				}
 
 				if (classType.equals("test-case")) {
