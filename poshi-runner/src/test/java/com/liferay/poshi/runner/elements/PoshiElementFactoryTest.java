@@ -14,6 +14,7 @@
 
 package com.liferay.poshi.runner.elements;
 
+import com.liferay.poshi.runner.PoshiRunnerCommandExecutor;
 import com.liferay.poshi.runner.util.Dom4JUtil;
 import com.liferay.poshi.runner.util.FileUtil;
 
@@ -62,6 +63,15 @@ public class PoshiElementFactoryTest {
 		if (!poshiProse.equals(poshiProseInXML)) {
 			throw new Exception("Poshi Prose could not be translated");
 		}
+
+		System.setProperty(
+			"poshiRunnerExtPropertyFileNames",
+			"src/test/resources/com/liferay/poshi/runner/dependencies/prose/" +
+				"poshi-runner-prose.properties");
+
+		String[] poshiCommands = {"validatePoshi", "runPoshi"};
+
+		PoshiRunnerCommandExecutor.main(poshiCommands);
 	}
 
 	@Test
