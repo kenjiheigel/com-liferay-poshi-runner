@@ -18,7 +18,9 @@ import com.liferay.poshi.runner.util.Dom4JUtil;
 import com.liferay.poshi.runner.util.Validator;
 
 import java.io.IOException;
+import java.util.List;
 
+import org.dom4j.Attribute;
 import org.dom4j.CDATA;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -27,6 +29,10 @@ import org.dom4j.Node;
  * @author Kenji Heigel
  */
 public class VarPoshiElement extends PoshiElement {
+
+	public VarPoshiElement(List<Attribute> attributes, List<Node> nodes) {
+		super(_ELEMENT_NAME, attributes, nodes);
+	}
 
 	@Override
 	public PoshiElement clone(Element element) {
