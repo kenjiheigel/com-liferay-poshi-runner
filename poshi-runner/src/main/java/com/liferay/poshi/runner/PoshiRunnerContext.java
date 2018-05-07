@@ -285,6 +285,12 @@ public class PoshiRunnerContext {
 		_readTestToggleFiles();
 	}
 
+	public static void readFiles(String[] includes, String... baseDirNames)
+			throws Exception {
+
+		_readPoshiFiles(includes, baseDirNames);
+	}
+
 	public static void setTestCaseNamespacedClassCommandName(
 		String testCaseNamespacedClassCommandName) {
 
@@ -777,6 +783,10 @@ public class PoshiRunnerContext {
 
 		_readPoshiFiles(poshiFileNames, _TEST_BASE_DIR_NAME);
 
+		String[] test = {"**/*.prose"};
+
+		_readPoshiFiles(test, _TEST_BASE_DIR_NAME);
+
 		_initComponentCommandNamesMap();
 
 		if (!_duplicateLocatorMessages.isEmpty()) {
@@ -1115,7 +1125,7 @@ public class PoshiRunnerContext {
 				if (classType.equals("macro") && matchingString != null &&
 					!matchingString.isEmpty()) {
 
-					PoshiProseMacroMatchingString ppmms = 
+					PoshiProseMacroMatchingString ppmms =
 						PoshiProseMacroMatchingString.
 							getPoshiProseMacroMatchingString(
 								commandElement.attributeValue(

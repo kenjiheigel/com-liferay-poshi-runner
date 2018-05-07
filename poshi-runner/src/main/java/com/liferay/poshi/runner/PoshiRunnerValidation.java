@@ -200,7 +200,7 @@ public class PoshiRunnerValidation {
 		Element element, String filePath) {
 
 		List<String> possibleAttributeNames = Arrays.asList(
-			"line-number", "name", "returns", "summary", "summary-ignore");
+			"line-number", "matching-string", "name", "returns", "summary", "summary-ignore");
 
 		validatePossibleAttributeNames(
 			element, possibleAttributeNames, filePath);

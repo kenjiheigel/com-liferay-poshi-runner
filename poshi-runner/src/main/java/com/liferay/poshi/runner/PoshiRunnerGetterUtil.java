@@ -17,6 +17,7 @@ package com.liferay.poshi.runner;
 import com.liferay.poshi.runner.elements.PoshiElement;
 import com.liferay.poshi.runner.elements.PoshiNode;
 import com.liferay.poshi.runner.elements.PoshiNodeFactory;
+import com.liferay.poshi.runner.prose.PoshiProse;
 import com.liferay.poshi.runner.selenium.SeleniumUtil;
 import com.liferay.poshi.runner.util.Dom4JUtil;
 import com.liferay.poshi.runner.util.ExternalMethod;
@@ -156,7 +157,7 @@ public class PoshiRunnerGetterUtil {
 	public static String getClassTypeFromFileExtension(String fileExtension) {
 		String classType = fileExtension;
 
-		if (fileExtension.equals("testcase")) {
+		if (fileExtension.equals("testcase") || fileExtension.equals("prose")) {
 			classType = "test-case";
 		}
 
@@ -215,7 +216,7 @@ public class PoshiRunnerGetterUtil {
 		String fileExtension = classType;
 
 		if (fileExtension.equals("test-case")) {
-			fileExtension = "testcase";
+			fileExtension = "prose";
 		}
 
 		return fileExtension;
@@ -361,6 +362,12 @@ public class PoshiRunnerGetterUtil {
 			if (poshiNode instanceof PoshiElement) {
 				fileContent = Dom4JUtil.format((PoshiElement)poshiNode);
 			}
+		}
+
+		if (filePath.endsWith(".prose")) {
+			PoshiProse poshiProse = new PoshiProse(fileContent);
+
+			fileContent = Dom4JUtil.format(poshiProse.getPoshiXML());
 		}
 
 		BufferedReader bufferedReader = new BufferedReader(
