@@ -16,6 +16,7 @@ package com.liferay.poshi.runner.elements;
 
 import com.google.common.reflect.ClassPath;
 
+import com.liferay.poshi.runner.prose.PoshiProse;
 import com.liferay.poshi.runner.util.Dom4JUtil;
 import com.liferay.poshi.runner.util.FileUtil;
 
@@ -27,6 +28,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dom4j.Attribute;
 import org.dom4j.Comment;
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -85,6 +87,12 @@ public abstract class PoshiNodeFactory {
 		throw new RuntimeException("Unknown readble syntax\n" + readableSyntax);
 	}
 
+	public static PoshiNode<?, ?> newPoshiNode(PoshiProse poshiProse) {
+		Element poshiXML = poshiProse.getPoshiXML();
+
+		throw new RuntimeException("Unknown Poshi Prose");
+	}
+
 	public static PoshiNode<?, ?> newPoshiNodeFromFile(String filePath) {
 		File file = new File(filePath);
 
@@ -97,6 +105,12 @@ public abstract class PoshiNodeFactory {
 				Element rootElement = document.getRootElement();
 
 				return newPoshiNode(rootElement);
+			}
+
+			if (filePath.endsWith(".prose")) {
+				PoshiProse poshiProse = new PoshiProse(content);
+
+				return newPoshiNode(poshiProse);
 			}
 
 			return newPoshiNode(null, content);
