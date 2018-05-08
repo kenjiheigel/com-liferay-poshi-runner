@@ -15,6 +15,7 @@
 package com.liferay.poshi.runner.elements;
 
 import com.liferay.poshi.runner.PoshiRunnerCommandExecutor;
+import com.liferay.poshi.runner.prose.PoshiProse;
 import com.liferay.poshi.runner.util.Dom4JUtil;
 import com.liferay.poshi.runner.util.FileUtil;
 
@@ -25,6 +26,8 @@ import org.dom4j.Text;
 import org.dom4j.util.NodeComparator;
 
 import org.junit.Test;
+
+import java.util.Properties;
 
 /**
  * @author Kenji Heigel
@@ -57,23 +60,38 @@ public class PoshiElementFactoryTest {
 
 	@Test
 	public void testProseToXML() throws Exception {
-		String poshiProse = FileUtil.read(_POSHI_PROSE_FILE_PATH);
-		String poshiProseInXML = FileUtil.read(_POSHI_PROSE_IN_XML_FILE_PATH);
+		Properties systemProperties = System.getProperties();
 
-		/*
-		if (!poshiProse.equals(poshiProseInXML)) {
-			throw new Exception("Poshi Prose could not be translated");
-		}
-		*/
-
-		System.setProperty(
+		systemProperties.setProperty(
 			"poshiRunnerExtPropertyFileNames",
 			"src/test/resources/com/liferay/poshi/runner/dependencies/prose/" +
 				"poshi-runner-prose.properties");
 
-		String[] poshiCommands = {"validatePoshi", "runPoshi"};
+		System.setProperties(systemProperties);
 
-		PoshiRunnerCommandExecutor.main(poshiCommands);
+		String poshiProseInXML = FileUtil.read(_POSHI_PROSE_IN_XML_FILE_PATH);
+
+		Document document = Dom4JUtil.parse(poshiProseInXML);
+
+		Element expectedPoshiXML = document.getRootElement();
+
+		_removeWhiteSpaceTextNodes(expectedPoshiXML);
+
+		String poshiProseString = FileUtil.read(_POSHI_PROSE_FILE_PATH);
+
+		PoshiProse poshiProse = new PoshiProse(poshiProseString);
+
+		if (!_areElementsEqual(poshiProse.getPoshiXML(), expectedPoshiXML)) {
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("\n\nExpected XML:");
+			sb.append(Dom4JUtil.format(expectedPoshiXML));
+			sb.append("\n\nXML from Poshi prose:");
+			sb.append(Dom4JUtil.format(poshiProse.getPoshiXML()));
+
+			throw new Exception(
+			"Poshi Prose could not be translated" + sb.toString());
+		}
 	}
 
 	@Test
