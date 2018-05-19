@@ -60,6 +60,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -809,19 +810,17 @@ public class PoshiRunnerContext {
 				PropsValues.TEST_INCLUDE_DIR_NAMES);
 		}
 
-		for (String[] poshiFileIncludes : new String[][] {
-				POSHI_SUPPORT_FILE_INCLUDES, POSHI_TEST_FILE_INCLUDES
-			}) {
+		String[] poshiFileIncludes = ArrayUtils.addAll(
+			PoshiRunnerContext.POSHI_SUPPORT_FILE_INCLUDES,
+			PoshiRunnerContext.POSHI_TEST_FILE_INCLUDES);
 
-			_readPoshiFilesFromClassPath(poshiFileIncludes, "testFunctional");
+		_readPoshiFilesFromClassPath(poshiFileIncludes, "testFunctional");
 
-			if (Validator.isNotNull(PropsValues.TEST_SUBREPO_DIRS)) {
-				_readPoshiFiles(
-					poshiFileIncludes, PropsValues.TEST_SUBREPO_DIRS);
-			}
-
-			_readPoshiFiles(poshiFileIncludes, _TEST_BASE_DIR_NAME);
+		if (Validator.isNotNull(PropsValues.TEST_SUBREPO_DIRS)) {
+			_readPoshiFiles(poshiFileIncludes, PropsValues.TEST_SUBREPO_DIRS);
 		}
+
+		_readPoshiFiles(poshiFileIncludes, _TEST_BASE_DIR_NAME);
 
 		_initComponentCommandNamesMap();
 
