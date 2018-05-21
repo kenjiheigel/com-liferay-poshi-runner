@@ -1205,34 +1205,33 @@ public class PoshiRunnerContext {
 					String urlPath1 = url1.getPath();
 					String urlPath2 = url2.getPath();
 
-					String[] orderedfileTypes = {
-						"action", "path", "function", "macro", "test", "prose"
-					};
+					Pattern urlPathPattern = Pattern.compile(
+						".*\\.(\\w+)");
 
-					String lastFileType =
-						orderedfileTypes[orderedfileTypes.length - 1];
+					Matcher urlPathMatcher1 = urlPathPattern.matcher(
+						urlPath1);
+					Matcher urlPathMatcher2 = urlPathPattern.matcher(
+						urlPath2);
 
-					for (String fileType : orderedfileTypes) {
-						if (urlPath1.endsWith(fileType) &&
-							urlPath2.endsWith(fileType)) {
+					String fileType1 = urlPathMatcher1.group(1);
+					String fileType2 = urlPathMatcher2.group(2);
 
-							return urlPath1.compareTo(urlPath2);
-						}
+					List<String> fileTypeList = Arrays.asList(
+						"action", "path", "function", "macro", "test", "prose");
 
-						if (urlPath1.endsWith(fileType) ||
-							urlPath2.endsWith(lastFileType)) {
+					Integer fileTypeIndex1 = fileTypeList.indexOf(
+						StringUtil.toLowerCase(fileType1));
+					Integer fileTypeIndex2 = fileTypeList.indexOf(
+						StringUtil.toLowerCase(fileType2));
 
-							return -1;
-						}
+					int indexCompareValue = fileTypeIndex1.compareTo(
+						fileTypeIndex2);
 
-						if (urlPath1.endsWith(lastFileType) ||
-							urlPath2.endsWith(fileType)) {
-
-							return 1;
-						}
+					if (indexCompareValue == 0) {
+						return urlPath1.compareTo(urlPath2);
 					}
 
-					return 0;
+					return indexCompareValue;
 				}
 
 			});
