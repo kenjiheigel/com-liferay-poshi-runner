@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,6 +61,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -779,19 +781,17 @@ public class PoshiRunnerContext {
 				PropsValues.TEST_INCLUDE_DIR_NAMES);
 		}
 
-		for (String[] poshiFileIncludes : new String[][] {
-				POSHI_SUPPORT_FILE_INCLUDES, POSHI_TEST_FILE_INCLUDES
-			}) {
+		String[] poshiFileIncludes = ArrayUtils.addAll(
+			PoshiRunnerContext.POSHI_SUPPORT_FILE_INCLUDES,
+			PoshiRunnerContext.POSHI_TEST_FILE_INCLUDES);
 
-			_readPoshiFilesFromClassPath(poshiFileIncludes, "testFunctional");
+		_readPoshiFilesFromClassPath(poshiFileIncludes, "testFunctional");
 
-			if (Validator.isNotNull(PropsValues.TEST_SUBREPO_DIRS)) {
-				_readPoshiFiles(
-					poshiFileIncludes, PropsValues.TEST_SUBREPO_DIRS);
-			}
-
-			_readPoshiFiles(poshiFileIncludes, _TEST_BASE_DIR_NAME);
+		if (Validator.isNotNull(PropsValues.TEST_SUBREPO_DIRS)) {
+			_readPoshiFiles(poshiFileIncludes, PropsValues.TEST_SUBREPO_DIRS);
 		}
+
+		_readPoshiFiles(poshiFileIncludes, _TEST_BASE_DIR_NAME);
 
 		_initComponentCommandNamesMap();
 
@@ -1195,6 +1195,46 @@ public class PoshiRunnerContext {
 		throws Exception {
 
 		Map<String, String> filePaths = new HashMap<>();
+
+		Collections.sort(
+			urls,
+			new Comparator<URL>() {
+
+				@Override
+				public int compare(URL url1, URL url2) {
+					String urlPath1 = url1.getPath();
+					String urlPath2 = url2.getPath();
+
+					Pattern urlPathPattern = Pattern.compile(
+						".*\\.(\\w+)");
+
+					Matcher urlPathMatcher1 = urlPathPattern.matcher(
+						urlPath1);
+					Matcher urlPathMatcher2 = urlPathPattern.matcher(
+						urlPath2);
+
+					String fileType1 = urlPathMatcher1.group(1);
+					String fileType2 = urlPathMatcher2.group(2);
+
+					List<String> fileTypeList = Arrays.asList(
+						"action", "path", "function", "macro", "test", "prose");
+
+					Integer fileTypeIndex1 = fileTypeList.indexOf(
+						StringUtil.toLowerCase(fileType1));
+					Integer fileTypeIndex2 = fileTypeList.indexOf(
+						StringUtil.toLowerCase(fileType2));
+
+					int indexCompareValue = fileTypeIndex1.compareTo(
+						fileTypeIndex2);
+
+					if (indexCompareValue == 0) {
+						return urlPath1.compareTo(urlPath2);
+					}
+
+					return indexCompareValue;
+				}
+
+			});
 
 		for (URL url : urls) {
 			String filePath = url.getFile();
