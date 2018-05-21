@@ -48,6 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -308,36 +309,6 @@ public class PoshiRunnerContext {
 
 		_testCaseNamespacedClassCommandName =
 			testCaseNamespacedClassCommandName;
-	}
-
-	private static int _compareByFileTypeOrder(URL url1, URL url2) {
-		String urlPath1 = url1.getPath();
-		String urlPath2 = url2.getPath();
-
-		String[] orderedfileTypes =
-			{"action", "path", "function", "macro", "test", "prose"};
-
-		String lastFileType = orderedfileTypes[orderedfileTypes.length - 1];
-
-		for (String fileType : orderedfileTypes) {
-			if (urlPath1.endsWith(fileType) && urlPath2.endsWith(fileType)) {
-				return urlPath1.compareTo(urlPath2);
-			}
-
-			if (urlPath1.endsWith(fileType) ||
-				urlPath2.endsWith(lastFileType)) {
-
-				return -1;
-			}
-
-			if (urlPath1.endsWith(lastFileType) ||
-				urlPath2.endsWith(fileType)) {
-
-				return 1;
-			}
-		}
-
-		return 0;
 	}
 
 	private static int _getAllocatedTestGroupSize(int testCount) {
@@ -1226,7 +1197,45 @@ public class PoshiRunnerContext {
 		Map<String, String> filePaths = new HashMap<>();
 
 		Collections.sort(
-			urls, (url1, url2) -> _compareByFileTypeOrder(url1, url2));
+			urls,
+			new Comparator<URL>() {
+
+				@Override
+				public int compare(URL url1, URL url2) {
+					String urlPath1 = url1.getPath();
+					String urlPath2 = url2.getPath();
+
+					String[] orderedfileTypes = {
+						"action", "path", "function", "macro", "test", "prose"
+					};
+
+					String lastFileType =
+						orderedfileTypes[orderedfileTypes.length - 1];
+
+					for (String fileType : orderedfileTypes) {
+						if (urlPath1.endsWith(fileType) &&
+							urlPath2.endsWith(fileType)) {
+
+							return urlPath1.compareTo(urlPath2);
+						}
+
+						if (urlPath1.endsWith(fileType) ||
+							urlPath2.endsWith(lastFileType)) {
+
+							return -1;
+						}
+
+						if (urlPath1.endsWith(lastFileType) ||
+							urlPath2.endsWith(fileType)) {
+
+							return 1;
+						}
+					}
+
+					return 0;
+				}
+
+			});
 
 		for (URL url : urls) {
 			String filePath = url.getFile();
