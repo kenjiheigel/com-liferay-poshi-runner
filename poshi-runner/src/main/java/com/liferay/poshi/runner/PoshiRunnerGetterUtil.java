@@ -369,6 +369,8 @@ public class PoshiRunnerGetterUtil {
 
 			if (poshiNode instanceof PoshiElement) {
 				fileContent = Dom4JUtil.format((PoshiElement)poshiNode);
+
+				System.out.println(fileContent);
 			}
 		}
 
