@@ -72,7 +72,7 @@ var userEmailAddress = "userea@liferay.com";
 ```
 
 ##### Multiline Strings
-```javascript
+```groovy
 var wikiPageContent = '''<p id='demo'>PASS</p>
 
 <script type='text/javascript'>
