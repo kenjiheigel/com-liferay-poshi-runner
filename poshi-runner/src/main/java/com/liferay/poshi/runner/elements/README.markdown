@@ -67,12 +67,12 @@ echo, fail, takeScreenshot
 There are two possible types of variable assignments, vars and properties.
 #### `var` assignments
 ##### Basic Strings
-```
+```javascript
 var userEmailAddress = "userea@liferay.com";
 ```
 
 ##### Multiline Strings
-```
+```javascript
 var wikiPageContent = '''<p id='demo'>PASS</p>
 
 <script type='text/javascript'>
@@ -81,12 +81,12 @@ var wikiPageContent = '''<p id='demo'>PASS</p>
 ```
 
 ##### Assigning `var`'s to macro invocations
-```
+```javascript
 var siteName = TestCase.getSiteName();
 ```
 
 ##### Assigning `var`'s to class/method invocations
-```
+```javascript
 var breadcrumbNameUppercase = StringUtil.upperCase('${breadcrumbName}');
 ```
 #### `property` assignments
