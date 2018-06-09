@@ -23,10 +23,38 @@ definition {
 }
 ```
 
-### `setUp`, `tearDown`, and `macro`/`test` command blocks
+### `setUp` and `tearDown` blocks
+```javascript
+setUp {
+	...
+}
+```
+
+```javascript
+tearDown {
+	...
+}
+```
+### `macro`/`test` blocks
+```javascript
+macro macroName {
+	...
+}
+```
+
+```javascript
+test macroName {
+	...
+}
+```
 ### `for` blocks
 ### `if`, `else if`, and `else` blocks
 ### `while` blocks
+```javascript
+while (IsElementPresent(locator1 = "AssetCategorization#TAGS_REMOVE_ICON_GENERIC")) {
+	Click.click(locator1 = "AssetCategorization#TAGS_REMOVE_ICON_GENERIC");
+}
+```
 ### `task` blocks
 ## Code Statements
 ### Invocations
@@ -38,6 +66,29 @@ echo, fail, takeScreenshot
 ### Variable Assignments
 There are two possible types of variable assignments, vars and properties.
 #### `var` assignments
+##### Basic Strings
+```
+var userEmailAddress = "userea@liferay.com";
+```
+
+##### Multiline Strings
+```
+var wikiPageContent = '''<p id='demo'>PASS</p>
+
+<script type='text/javascript'>
+	document.getElementById('demo').innerHTML = 'FAIL';
+</script>''';
+```
+
+##### Assigning `var`'s to macro invocations
+```
+var siteName = TestCase.getSiteName();
+```
+
+##### Assigning `var`'s to class/method invocations
+```
+var breadcrumbNameUppercase = StringUtil.upperCase('${breadcrumbName}');
+```
 #### `property` assignments
 
 ## Conditionals
