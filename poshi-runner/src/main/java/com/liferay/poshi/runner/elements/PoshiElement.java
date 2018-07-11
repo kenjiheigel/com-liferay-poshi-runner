@@ -125,24 +125,6 @@ public abstract class PoshiElement
 	}
 
 	protected PoshiElement(
-		String name, List<Attribute> attributes, List<Node> nodes) {
-
-		super(name);
-
-		if (attributes != null) {
-			for (Attribute attribute : attributes) {
-				add(attribute);
-			}
-		}
-
-		if (nodes != null) {
-			for (Node node : nodes) {
-				add(node);
-			}
-		}
-	}
-
-	protected PoshiElement(
 		String name, PoshiElement parentPoshiElement, String poshiScript) {
 
 		super(name);

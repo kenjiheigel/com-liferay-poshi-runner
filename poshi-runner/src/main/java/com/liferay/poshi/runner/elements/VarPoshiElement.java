@@ -264,10 +264,6 @@ public class VarPoshiElement extends PoshiElement {
 		this(_ELEMENT_NAME, element);
 	}
 
-	protected VarPoshiElement(List<Attribute> attributes, List<Node> nodes) {
-		this(_ELEMENT_NAME, attributes, nodes);
-	}
-
 	protected VarPoshiElement(
 		PoshiElement parentPoshiElement, String poshiScript) {
 
@@ -280,12 +276,6 @@ public class VarPoshiElement extends PoshiElement {
 		if (isElementType(name, element)) {
 			initValueAttributeName(element);
 		}
-	}
-
-	protected VarPoshiElement(
-		String elementName, List<Attribute> attributes, List<Node> nodes) {
-
-		super(elementName, attributes, nodes);
 	}
 
 	protected VarPoshiElement(

@@ -54,21 +54,9 @@ public class TearDownPoshiElement extends CommandPoshiElement {
 	}
 
 	protected TearDownPoshiElement(
-		List<Attribute> attributes, List<Node> nodes) {
-
-		this(_ELEMENT_NAME, attributes, nodes);
-	}
-
-	protected TearDownPoshiElement(
 		PoshiElement parentPoshiElement, String poshiScript) {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
-	}
-
-	protected TearDownPoshiElement(
-		String elementName, List<Attribute> attributes, List<Node> nodes) {
-
-		super(elementName, attributes, nodes);
 	}
 
 	@Override

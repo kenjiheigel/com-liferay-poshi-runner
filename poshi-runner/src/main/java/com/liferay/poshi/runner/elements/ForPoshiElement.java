@@ -18,13 +18,10 @@ import com.liferay.poshi.runner.util.Dom4JUtil;
 
 import java.io.IOException;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.dom4j.Attribute;
 import org.dom4j.Element;
-import org.dom4j.Node;
 
 /**
  * @author Kenji Heigel
@@ -88,10 +85,6 @@ public class ForPoshiElement extends PoshiElement {
 		super(_ELEMENT_NAME, element);
 
 		initTypeAttributeName(element);
-	}
-
-	protected ForPoshiElement(List<Attribute> attributes, List<Node> nodes) {
-		super(_ELEMENT_NAME, attributes, nodes);
 	}
 
 	protected ForPoshiElement(

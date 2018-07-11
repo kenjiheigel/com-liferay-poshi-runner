@@ -251,12 +251,6 @@ public class ExecutePoshiElement extends PoshiElement {
 	}
 
 	protected ExecutePoshiElement(
-		List<Attribute> attributes, List<Node> nodes) {
-
-		this(_ELEMENT_NAME, attributes, nodes);
-	}
-
-	protected ExecutePoshiElement(
 		PoshiElement parentPoshiElement, String poshiScript) {
 
 		super("execute", parentPoshiElement, poshiScript);
@@ -264,12 +258,6 @@ public class ExecutePoshiElement extends PoshiElement {
 
 	protected ExecutePoshiElement(String name, Element element) {
 		super(name, element);
-	}
-
-	protected ExecutePoshiElement(
-		String elementName, List<Attribute> attributes, List<Node> nodes) {
-
-		super(elementName, attributes, nodes);
 	}
 
 	protected ExecutePoshiElement(

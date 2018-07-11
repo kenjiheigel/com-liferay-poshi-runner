@@ -67,10 +67,6 @@ public class EchoPoshiElement extends PoshiElement {
 		super(_ELEMENT_NAME, element);
 	}
 
-	protected EchoPoshiElement(List<Attribute> attributes, List<Node> nodes) {
-		this(_ELEMENT_NAME, attributes, nodes);
-	}
-
 	protected EchoPoshiElement(
 		PoshiElement parentPoshiElement, String poshiScript) {
 
@@ -79,12 +75,6 @@ public class EchoPoshiElement extends PoshiElement {
 
 	protected EchoPoshiElement(String name, Element element) {
 		super(name, element);
-	}
-
-	protected EchoPoshiElement(
-		String elementName, List<Attribute> attributes, List<Node> nodes) {
-
-		super(elementName, attributes, nodes);
 	}
 
 	protected EchoPoshiElement(

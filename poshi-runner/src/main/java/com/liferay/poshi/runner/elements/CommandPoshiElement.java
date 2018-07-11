@@ -14,13 +14,10 @@
 
 package com.liferay.poshi.runner.elements;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.dom4j.Attribute;
 import org.dom4j.Element;
-import org.dom4j.Node;
 
 /**
  * @author Kenji Heigel
@@ -122,12 +119,6 @@ public class CommandPoshiElement extends PoshiElement {
 	}
 
 	protected CommandPoshiElement(
-		List<Attribute> attributes, List<Node> nodes) {
-
-		this(_ELEMENT_NAME, attributes, nodes);
-	}
-
-	protected CommandPoshiElement(
 		PoshiElement parentPoshiElement, String poshiScript) {
 
 		this(_ELEMENT_NAME, parentPoshiElement, poshiScript);
@@ -135,12 +126,6 @@ public class CommandPoshiElement extends PoshiElement {
 
 	protected CommandPoshiElement(String name, Element element) {
 		super(name, element);
-	}
-
-	protected CommandPoshiElement(
-		String elementName, List<Attribute> attributes, List<Node> nodes) {
-
-		super(elementName, attributes, nodes);
 	}
 
 	protected CommandPoshiElement(

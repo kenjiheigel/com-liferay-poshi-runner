@@ -61,10 +61,6 @@ public class ThenPoshiElement extends PoshiElement {
 		super(_ELEMENT_NAME, element);
 	}
 
-	protected ThenPoshiElement(List<Attribute> attributes, List<Node> nodes) {
-		this(_ELEMENT_NAME, attributes, nodes);
-	}
-
 	protected ThenPoshiElement(
 		PoshiElement parentPoshiElement, String poshiScript) {
 
@@ -73,12 +69,6 @@ public class ThenPoshiElement extends PoshiElement {
 
 	protected ThenPoshiElement(String name, Element element) {
 		super(name, element);
-	}
-
-	protected ThenPoshiElement(
-		String elementName, List<Attribute> attributes, List<Node> nodes) {
-
-		super(elementName, attributes, nodes);
 	}
 
 	protected ThenPoshiElement(
