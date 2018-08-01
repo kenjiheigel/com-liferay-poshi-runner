@@ -26,6 +26,7 @@ import com.liferay.poshi.runner.util.FileUtil;
 import com.liferay.poshi.runner.util.GetterUtil;
 import com.liferay.poshi.runner.util.HtmlUtil;
 import com.liferay.poshi.runner.util.OSDetector;
+import com.liferay.poshi.runner.util.PropsUtil;
 import com.liferay.poshi.runner.util.PropsValues;
 import com.liferay.poshi.runner.util.RuntimeVariables;
 import com.liferay.poshi.runner.util.StringPool;
@@ -1746,6 +1747,13 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 			PoshiRunnerGetterUtil.
 				getClassCommandNameFromNamespacedClassCommandName(
 					classCommandName);
+
+		System.out.println("isTestName printout");
+		System.out.println("Current test name: " + classCommandName);
+		System.out.println("Test name to compare: " + classCommandName);
+		System.out.println(
+			"test.name.skip.portal.instance property" +
+				PropsUtil.get("test.name.skip.portal.instance"));
 
 		if (testName.equals(classCommandName)) {
 			return true;
