@@ -111,7 +111,9 @@ public abstract class PoshiNodeFactory {
 				return definitionPoshiElement.clone(rootElement);
 			}
 
-			return definitionPoshiElement.clone(content);
+			if (definitionPoshiElement.isBalancedPoshiScript(content)) {
+				return definitionPoshiElement.clone(content);
+			}
 		}
 		catch (Exception e) {
 			System.out.println("Unable to generate the Poshi XML");
