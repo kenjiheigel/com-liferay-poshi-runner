@@ -598,7 +598,7 @@ public class PoshiRunnerValidation {
 				filePath);
 
 			List<String> possibleChildElementNames = Arrays.asList(
-				"arg", "return", "var");
+				"arg", "prose", "return", "var");
 
 			for (Element childElement : childElements) {
 				String childElementName = childElement.getName();
