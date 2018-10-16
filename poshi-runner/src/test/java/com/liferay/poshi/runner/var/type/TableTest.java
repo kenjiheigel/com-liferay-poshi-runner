@@ -16,6 +16,7 @@ package com.liferay.poshi.runner.var.type;
 
 import com.liferay.poshi.runner.PoshiRunner;
 import com.liferay.poshi.runner.PoshiRunnerContext;
+import com.liferay.poshi.runner.PoshiRunnerValidation;
 import com.liferay.poshi.runner.selenium.SeleniumUtil;
 import com.liferay.poshi.runner.util.TableUtil;
 
@@ -62,6 +63,8 @@ public class TableTest extends TestCase {
 			PoshiRunnerContext.POSHI_TEST_FILE_INCLUDES);
 
 		PoshiRunnerContext.readFiles(poshiFileNames, _TEST_BASE_DIR_NAME);
+
+		PoshiRunnerValidation.validate();
 	}
 
 	@Test
