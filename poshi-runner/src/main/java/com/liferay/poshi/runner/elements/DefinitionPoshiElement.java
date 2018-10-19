@@ -25,7 +25,29 @@ import org.dom4j.Node;
 /**
  * @author Kenji Heigel
  */
-public abstract class DefinitionPoshiElement extends PoshiElement {
+public class DefinitionPoshiElement extends PoshiElement {
+
+	@Override
+	public PoshiElement clone(Element element) {
+		if (isElementType(getElementName(), element)) {
+			return new DefinitionPoshiElement(element);
+		}
+
+		return null;
+	}
+
+	@Override
+	public PoshiElement clone(
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws Exception {
+
+		if (isElementType(poshiScript)) {
+			return new DefinitionPoshiElement(
+				parentPoshiElement, poshiScript);
+		}
+
+		return null;
+	}
 
 	@Override
 	public void parsePoshiScript(String poshiScript) {
@@ -95,10 +117,6 @@ public abstract class DefinitionPoshiElement extends PoshiElement {
 
 	protected String getElementName() {
 		return _ELEMENT_NAME;
-	}
-
-	protected String getFileType() {
-		return null;
 	}
 
 	@Override
