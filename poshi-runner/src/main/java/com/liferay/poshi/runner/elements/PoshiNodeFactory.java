@@ -88,31 +88,10 @@ public abstract class PoshiNodeFactory {
 			"Unknown Poshi script syntax\n" + poshiScript);
 	}
 
-	public static PoshiNode<?, ?> newPoshiNode(
-		String content, String fileType) {
-
+	public static PoshiNode<?, ?> newPoshiNode(String poshiScript, File file) {
 		try {
-			DefinitionPoshiElement definitionPoshiElement = null;
-
-			for (PoshiElement poshiElement : _poshiElements) {
-				if (poshiElement instanceof DefinitionPoshiElement &&
-					fileType.equals(poshiElement.getFileType())) {
-
-					definitionPoshiElement =
-						(DefinitionPoshiElement)poshiElement;
-				}
-			}
-
-			if (content.contains("<definition")) {
-				Document document = Dom4JUtil.parse(content);
-
-				Element rootElement = document.getRootElement();
-
-				return definitionPoshiElement.clone(rootElement);
-			}
-
-			if (definitionPoshiElement.isBalancedPoshiScript(content)) {
-				return definitionPoshiElement.clone(content);
+			if (_definitionPoshiElement.isBalancedPoshiScript(poshiScript)) {
+				return _definitionPoshiElement.clone(poshiScript, file);
 			}
 		}
 		catch (Exception e) {
@@ -130,11 +109,17 @@ public abstract class PoshiNodeFactory {
 
 			String content = FileUtil.read(file);
 
-			int index = filePath.lastIndexOf(".");
+			content = content.trim();
 
-			String fileType = filePath.substring(index + 1);
+			if (content.startsWith("<definition")) {
+				Document document = Dom4JUtil.parse(content);
 
-			return newPoshiNode(content, fileType);
+				Element rootElement = document.getRootElement();
+
+				return _definitionPoshiElement.clone(rootElement, file);
+			}
+
+			return newPoshiNode(content, file);
 		}
 		catch (Exception e) {
 			System.out.println("Unable to generate the Poshi XML");
