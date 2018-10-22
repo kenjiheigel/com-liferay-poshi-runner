@@ -20,6 +20,8 @@ import com.liferay.poshi.runner.util.Dom4JUtil;
 import com.liferay.poshi.runner.util.RegexUtil;
 import com.liferay.poshi.runner.util.StringUtil;
 
+import java.io.File;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -139,6 +141,12 @@ public abstract class PoshiElement
 		_addNodes(element);
 	}
 
+	protected PoshiElement(String name, Element element, File file) {
+		this(name, element);
+
+		setFilePath(file);
+	}
+
 	protected PoshiElement(
 		String name, List<Attribute> attributes, List<Node> nodes) {
 
@@ -160,7 +168,16 @@ public abstract class PoshiElement
 	protected PoshiElement(
 		String name, PoshiElement parentPoshiElement, String poshiScript) {
 
+		this(name, parentPoshiElement, poshiScript, null);
+	}
+
+	protected PoshiElement(
+		String name, PoshiElement parentPoshiElement, String poshiScript,
+		File file) {
+
 		super(name);
+
+		setFilePath(file);
 
 		setParent(parentPoshiElement);
 

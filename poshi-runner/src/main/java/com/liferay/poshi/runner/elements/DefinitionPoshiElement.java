@@ -14,6 +14,8 @@
 
 package com.liferay.poshi.runner.elements;
 
+import java.io.File;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,8 +31,12 @@ public class DefinitionPoshiElement extends PoshiElement {
 
 	@Override
 	public PoshiElement clone(Element element) {
+		return clone(element, null);
+	}
+
+	public PoshiElement clone(Element element, File file) {
 		if (isElementType(getElementName(), element)) {
-			return new DefinitionPoshiElement(element);
+			return new DefinitionPoshiElement(element, file);
 		}
 
 		return null;
@@ -38,12 +44,14 @@ public class DefinitionPoshiElement extends PoshiElement {
 
 	@Override
 	public PoshiElement clone(
-			PoshiElement parentPoshiElement, String poshiScript)
-		throws Exception {
+		PoshiElement parentPoshiElement, String poshiScript) {
 
+		return clone(poshiScript, null);
+	}
+
+	public PoshiElement clone(String poshiScript, File file) {
 		if (isElementType(poshiScript)) {
-			return new DefinitionPoshiElement(
-				parentPoshiElement, poshiScript);
+			return new DefinitionPoshiElement(poshiScript, file);
 		}
 
 		return null;
@@ -106,8 +114,8 @@ public class DefinitionPoshiElement extends PoshiElement {
 	protected DefinitionPoshiElement() {
 	}
 
-	protected DefinitionPoshiElement(Element element) {
-		super(_ELEMENT_NAME, element);
+	protected DefinitionPoshiElement(Element element, File file) {
+		super(_ELEMENT_NAME, element, file);
 	}
 
 	protected DefinitionPoshiElement(
@@ -120,6 +128,10 @@ public class DefinitionPoshiElement extends PoshiElement {
 		PoshiElement parentPoshiElement, String poshiScript) {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
+	}
+
+	protected DefinitionPoshiElement(String poshiScript, File file) {
+		super(_ELEMENT_NAME, null, poshiScript, file);
 	}
 
 	@Override
