@@ -18,6 +18,8 @@ import com.liferay.poshi.runner.PoshiRunnerContext;
 import com.liferay.poshi.runner.util.Dom4JUtil;
 import com.liferay.poshi.runner.util.FileUtil;
 
+import java.io.File;
+
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -186,13 +188,15 @@ public class PoshiElementFactoryTest {
 
 	@Test
 	public void testPoshiXMLTestToPoshiScriptToPoshiXML() throws Exception {
-		PoshiElement poshiElement = _getPoshiElement("PoshiSyntax.testcase");
+		String fileName = "PoshiSyntax.testcase";
+
+		PoshiElement poshiElement = _getPoshiElement(fileName);
 
 		String poshiScript = poshiElement.toPoshiScript();
 
 		PoshiElement actualElement =
 			(PoshiElement)PoshiNodeFactory.newPoshiNode(
-				poshiScript, "testcase");
+				poshiScript, _getFile(fileName));
 
 		Element expectedElement = _getDom4JElement("PoshiSyntax.testcase");
 
@@ -267,7 +271,13 @@ public class PoshiElementFactoryTest {
 		return sb.toString();
 	}
 
-	private static PoshiElement _getPoshiElement(String fileName) {
+	private static File _getFile(String fileName) {
+		return new File(_BASE_DIR + fileName);
+	}
+
+	private static PoshiElement _getPoshiElement(String fileName)
+		throws Exception {
+
 		return (PoshiElement)PoshiNodeFactory.newPoshiNodeFromFile(
 			_BASE_DIR + fileName);
 	}
