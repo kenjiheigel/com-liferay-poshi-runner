@@ -145,6 +145,16 @@ public abstract class PoshiNodeFactory {
 		return null;
 	}
 
+	private static DefinitionPoshiElement _getDefinitionPoshiElement() {
+		for (PoshiElement poshiElement : _poshiElements) {
+			if (poshiElement instanceof DefinitionPoshiElement) {
+				return (DefinitionPoshiElement)poshiElement;
+			}
+		}
+
+		return new DefinitionPoshiElement();
+	}
+
 	private static PoshiComment _newPoshiComment(Comment comment) {
 		for (PoshiComment poshiComment : _poshiComments) {
 			PoshiComment newPoshiComment = poshiComment.clone(comment);
@@ -196,6 +206,7 @@ public abstract class PoshiNodeFactory {
 		return null;
 	}
 
+	private static final DefinitionPoshiElement _definitionPoshiElement;
 	private static final List<PoshiComment> _poshiComments = new ArrayList<>();
 	private static final List<PoshiElement> _poshiElements = new ArrayList<>();
 
@@ -248,6 +259,8 @@ public abstract class PoshiNodeFactory {
 					_poshiElements.add((PoshiElement)poshiNode);
 				}
 			}
+
+			_definitionPoshiElement = _getDefinitionPoshiElement();
 		}
 		catch (IllegalAccessException | InstantiationException |
 			   IOException e) {
