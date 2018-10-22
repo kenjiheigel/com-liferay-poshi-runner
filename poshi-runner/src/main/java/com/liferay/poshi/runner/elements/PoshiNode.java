@@ -18,6 +18,7 @@ import com.liferay.poshi.runner.util.StringUtil;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import org.dom4j.Node;
 
@@ -70,12 +71,21 @@ public interface PoshiNode<A extends Node, B extends PoshiNode<A, B>>
 					String parentPoshiScript =
 						parentPoshiElement.getPoshiScript();
 
-					String blockName = parentPoshiElement.getBlockName(
-						parentPoshiScript);
+					Matcher poshiScriptBlockMatcher =
+						PoshiElement.poshiScriptBlockPattern.matcher(
+							parentPoshiScript);
 
-					return parentPoshiElement.getPoshiScriptLineNumber() +
-						StringUtil.count(blockName, "\n") +
-							StringUtil.countStartingNewLines(getPoshiScript());
+					if (poshiScriptBlockMatcher.find()) {
+						String blockName = parentPoshiElement.getBlockName(
+							parentPoshiScript);
+
+						return parentPoshiElement.getPoshiScriptLineNumber() +
+							StringUtil.count(blockName, "\n") +
+								StringUtil.countStartingNewLines(
+									getPoshiScript());
+					}
+
+					return parentPoshiElement.getPoshiScriptLineNumber();
 				}
 
 				String previousPoshiScript = previousPoshiNode.getPoshiScript();
