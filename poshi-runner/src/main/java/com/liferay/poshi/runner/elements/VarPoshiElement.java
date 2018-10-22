@@ -14,6 +14,7 @@
 
 package com.liferay.poshi.runner.elements;
 
+import com.liferay.poshi.runner.script.PoshiScriptParserException;
 import com.liferay.poshi.runner.util.Dom4JUtil;
 import com.liferay.poshi.runner.util.StringUtil;
 import com.liferay.poshi.runner.util.Validator;
@@ -162,7 +163,15 @@ public class VarPoshiElement extends PoshiElement {
 
 			String content = getParentheticalContent(value);
 
-			if (!content.equals("")) {
+			content = content.trim();
+
+			if (content.equals("")) {
+			}
+			else if (!content.endsWith("\"") || !content.startsWith("\"")) {
+				throw new PoshiScriptParserException(
+					"Invalid method parameter(s)", this);
+			}
+			else {
 				value = value.replace(
 					content, swapParameterQuotations(content));
 			}
