@@ -764,6 +764,9 @@ public abstract class PoshiElement
 		return sb.toString();
 	}
 
+	protected void setFilePath(File file) {
+	}
+
 	protected String singleQuoteContent(String content) {
 		return "'" + content + "'";
 	}
