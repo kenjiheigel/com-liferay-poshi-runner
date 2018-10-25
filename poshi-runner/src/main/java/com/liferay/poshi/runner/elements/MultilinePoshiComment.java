@@ -35,7 +35,9 @@ public class MultilinePoshiComment extends PoshiComment {
 	}
 
 	@Override
-	public PoshiComment clone(String poshiScript) {
+	public PoshiComment clone(String poshiScript)
+		throws PoshiScriptParserException {
+
 		if (isPoshiScriptComment(poshiScript)) {
 			return new MultilinePoshiComment(poshiScript);
 		}

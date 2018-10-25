@@ -38,7 +38,9 @@ public class PoshiElementAttribute
 	}
 
 	@Override
-	public PoshiElementAttribute clone(String poshiScript) {
+	public PoshiElementAttribute clone(String poshiScript)
+		throws PoshiScriptParserException {
+
 		return null;
 	}
 

@@ -154,7 +154,13 @@ public abstract class PoshiNodeFactory {
 
 	private static PoshiComment _newPoshiComment(String poshiScript) {
 		for (PoshiComment poshiComment : _poshiComments) {
-			PoshiComment newPoshiComment = poshiComment.clone(poshiScript);
+			PoshiComment newPoshiComment = null;
+
+			try {
+				newPoshiComment = poshiComment.clone(poshiScript);
+			} catch (com.liferay.poshi.runner.script.PoshiScriptParserException e) {
+				e.printStackTrace();
+			}
 
 			if (newPoshiComment != null) {
 				return newPoshiComment;

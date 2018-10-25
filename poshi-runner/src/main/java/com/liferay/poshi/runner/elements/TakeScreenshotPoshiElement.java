@@ -39,7 +39,8 @@ public class TakeScreenshotPoshiElement extends PoshiElement {
 
 	@Override
 	public PoshiElement clone(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		if (_isElementType(poshiScript)) {
 			return new TakeScreenshotPoshiElement(

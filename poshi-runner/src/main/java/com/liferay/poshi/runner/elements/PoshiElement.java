@@ -62,9 +62,12 @@ public abstract class PoshiElement
 	}
 
 	public abstract PoshiElement clone(
-		PoshiElement parentPoshiElement, String poshiScript);
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException;
 
-	public PoshiElement clone(String poshiScript) {
+	public PoshiElement clone(String poshiScript)
+		throws PoshiScriptParserException {
+
 		return clone(null, poshiScript);
 	}
 

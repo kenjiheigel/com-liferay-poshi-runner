@@ -31,7 +31,7 @@ public interface PoshiNode<A extends Node, B extends PoshiNode<A, B>>
 
 	public B clone(A node);
 
-	public B clone(String poshiScript);
+	public B clone(String poshiScript) throws PoshiScriptParserException;
 
 	public default String getFilePath() {
 		PoshiNode parentPoshiNode = (PoshiNode)getParent();
