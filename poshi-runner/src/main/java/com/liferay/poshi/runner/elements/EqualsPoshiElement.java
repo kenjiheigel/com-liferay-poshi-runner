@@ -92,7 +92,8 @@ public class EqualsPoshiElement extends PoshiElement {
 	}
 
 	protected EqualsPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}

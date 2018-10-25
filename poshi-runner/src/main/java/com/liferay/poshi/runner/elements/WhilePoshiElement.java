@@ -58,7 +58,8 @@ public class WhilePoshiElement extends IfPoshiElement {
 	}
 
 	protected WhilePoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}

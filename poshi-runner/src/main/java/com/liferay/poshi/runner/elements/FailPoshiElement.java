@@ -58,7 +58,8 @@ public class FailPoshiElement extends EchoPoshiElement {
 	}
 
 	protected FailPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}

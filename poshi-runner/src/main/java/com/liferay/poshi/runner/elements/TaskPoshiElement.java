@@ -89,7 +89,8 @@ public class TaskPoshiElement extends PoshiElement {
 	}
 
 	protected TaskPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}

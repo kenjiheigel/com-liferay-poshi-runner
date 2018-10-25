@@ -16,6 +16,7 @@ package com.liferay.poshi.runner.elements;
 
 import com.liferay.poshi.runner.PoshiRunnerContext;
 import com.liferay.poshi.runner.PoshiRunnerGetterUtil;
+import com.liferay.poshi.runner.script.PoshiScriptParserException;
 import com.liferay.poshi.runner.util.Dom4JUtil;
 import com.liferay.poshi.runner.util.RegexUtil;
 import com.liferay.poshi.runner.util.StringUtil;
@@ -166,14 +167,16 @@ public abstract class PoshiElement
 	}
 
 	protected PoshiElement(
-		String name, PoshiElement parentPoshiElement, String poshiScript) {
+			String name, PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		this(name, parentPoshiElement, poshiScript, null);
 	}
 
 	protected PoshiElement(
-		String name, PoshiElement parentPoshiElement, String poshiScript,
-		File file) {
+			String name, PoshiElement parentPoshiElement, String poshiScript,
+			File file)
+		throws PoshiScriptParserException {
 
 		super(name);
 

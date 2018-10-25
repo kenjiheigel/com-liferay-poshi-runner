@@ -68,7 +68,8 @@ public class ElsePoshiElement extends ThenPoshiElement {
 	}
 
 	protected ElsePoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super("else", parentPoshiElement, poshiScript);
 	}

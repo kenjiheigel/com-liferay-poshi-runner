@@ -177,7 +177,7 @@ public abstract class PoshiNodeFactory {
 	}
 
 	private static PoshiElement _newPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript) {
 
 		for (PoshiElement poshiElement : _poshiElements) {
 			PoshiElement newPoshiElement = poshiElement.clone(

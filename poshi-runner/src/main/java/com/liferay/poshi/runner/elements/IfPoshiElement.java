@@ -113,7 +113,8 @@ public class IfPoshiElement extends PoshiElement {
 	}
 
 	protected IfPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super("if", parentPoshiElement, poshiScript);
 	}
@@ -129,7 +130,8 @@ public class IfPoshiElement extends PoshiElement {
 	}
 
 	protected IfPoshiElement(
-		String name, PoshiElement parentPoshiElement, String poshiScript) {
+			String name, PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(name, parentPoshiElement, poshiScript);
 	}

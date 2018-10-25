@@ -74,7 +74,8 @@ public class IsSetPoshiElement extends PoshiElement {
 	}
 
 	protected IsSetPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}

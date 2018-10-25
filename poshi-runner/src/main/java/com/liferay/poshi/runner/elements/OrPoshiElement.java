@@ -85,7 +85,8 @@ public class OrPoshiElement extends PoshiElement {
 	}
 
 	protected OrPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}

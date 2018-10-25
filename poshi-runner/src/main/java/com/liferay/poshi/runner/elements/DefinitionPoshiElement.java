@@ -129,7 +129,8 @@ public class DefinitionPoshiElement extends PoshiElement {
 	}
 
 	protected DefinitionPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}

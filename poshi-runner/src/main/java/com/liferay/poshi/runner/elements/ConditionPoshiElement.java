@@ -60,7 +60,8 @@ public class ConditionPoshiElement extends ExecutePoshiElement {
 	}
 
 	protected ConditionPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}

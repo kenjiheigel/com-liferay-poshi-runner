@@ -76,7 +76,8 @@ public class EchoPoshiElement extends PoshiElement {
 	}
 
 	protected EchoPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}
@@ -92,7 +93,8 @@ public class EchoPoshiElement extends PoshiElement {
 	}
 
 	protected EchoPoshiElement(
-		String name, PoshiElement parentPoshiElement, String poshiScript) {
+			String name, PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(name, parentPoshiElement, poshiScript);
 	}

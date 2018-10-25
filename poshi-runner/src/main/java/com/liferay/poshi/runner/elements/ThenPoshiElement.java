@@ -88,7 +88,8 @@ public class ThenPoshiElement extends PoshiElement {
 	}
 
 	protected ThenPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}
@@ -104,7 +105,8 @@ public class ThenPoshiElement extends PoshiElement {
 	}
 
 	protected ThenPoshiElement(
-		String name, PoshiElement parentPoshiElement, String poshiScript) {
+			String name, PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(name, parentPoshiElement, poshiScript);
 	}

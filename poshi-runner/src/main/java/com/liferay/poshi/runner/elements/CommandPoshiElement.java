@@ -137,7 +137,8 @@ public class CommandPoshiElement extends PoshiElement {
 	}
 
 	protected CommandPoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		this(_ELEMENT_NAME, parentPoshiElement, poshiScript);
 	}
@@ -153,7 +154,8 @@ public class CommandPoshiElement extends PoshiElement {
 	}
 
 	protected CommandPoshiElement(
-		String name, PoshiElement parentPoshiElement, String poshiScript) {
+			String name, PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(name, parentPoshiElement, poshiScript);
 	}

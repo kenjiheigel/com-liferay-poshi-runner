@@ -255,7 +255,8 @@ public class ExecutePoshiElement extends PoshiElement {
 	}
 
 	protected ExecutePoshiElement(
-		PoshiElement parentPoshiElement, String poshiScript) {
+			PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super("execute", parentPoshiElement, poshiScript);
 	}
@@ -271,7 +272,8 @@ public class ExecutePoshiElement extends PoshiElement {
 	}
 
 	protected ExecutePoshiElement(
-		String name, PoshiElement parentPoshiElement, String poshiScript) {
+			String name, PoshiElement parentPoshiElement, String poshiScript)
+		throws PoshiScriptParserException {
 
 		super(name, parentPoshiElement, poshiScript);
 	}
