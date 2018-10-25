@@ -14,6 +14,8 @@
 
 package com.liferay.poshi.runner.elements;
 
+import com.liferay.poshi.runner.script.PoshiScriptParserException;
+
 import java.util.List;
 
 import org.dom4j.Attribute;
@@ -46,7 +48,9 @@ public class DescriptionPoshiElement extends PoshiElement {
 	}
 
 	@Override
-	public void parsePoshiScript(String poshiScript) {
+	public void parsePoshiScript(String poshiScript)
+		throws PoshiScriptParserException {
+
 		String message = getDoubleQuotedContent(poshiScript);
 
 		addAttribute("message", message);

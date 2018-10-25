@@ -14,6 +14,8 @@
 
 package com.liferay.poshi.runner.elements;
 
+import com.liferay.poshi.runner.script.PoshiScriptParserException;
+
 import org.dom4j.Comment;
 
 /**
@@ -53,7 +55,9 @@ public class MultilinePoshiComment extends PoshiComment {
 	}
 
 	@Override
-	public void parsePoshiScript(String poshiScript) {
+	public void parsePoshiScript(String poshiScript)
+		throws PoshiScriptParserException {
+
 		String text = poshiScript.substring(2, poshiScript.length() - 2);
 
 		setText(text);

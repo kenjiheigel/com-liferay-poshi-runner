@@ -14,6 +14,7 @@
 
 package com.liferay.poshi.runner.elements;
 
+import com.liferay.poshi.runner.script.PoshiScriptParserException;
 import com.liferay.poshi.runner.util.StringUtil;
 
 import java.util.Iterator;
@@ -105,7 +106,8 @@ public interface PoshiNode<A extends Node, B extends PoshiNode<A, B>>
 			StringUtil.count(previousPoshiNode.getPoshiScript(), "\n");
 	}
 
-	public void parsePoshiScript(String poshiScript);
+	public void parsePoshiScript(String poshiScript)
+		throws PoshiScriptParserException;
 
 	public void setPoshiScript(String poshiScript);
 

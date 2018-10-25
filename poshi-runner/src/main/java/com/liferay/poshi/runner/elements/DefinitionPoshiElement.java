@@ -14,6 +14,8 @@
 
 package com.liferay.poshi.runner.elements;
 
+import com.liferay.poshi.runner.script.PoshiScriptParserException;
+
 import java.io.File;
 
 import java.util.List;
@@ -70,7 +72,9 @@ public class DefinitionPoshiElement extends PoshiElement {
 	}
 
 	@Override
-	public void parsePoshiScript(String poshiScript) {
+	public void parsePoshiScript(String poshiScript)
+		throws PoshiScriptParserException {
+
 		String blockName = getBlockName(poshiScript);
 
 		Matcher poshiScriptAnnotationMatcher =

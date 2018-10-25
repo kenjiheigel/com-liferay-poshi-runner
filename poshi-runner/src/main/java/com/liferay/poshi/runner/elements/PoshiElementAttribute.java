@@ -14,6 +14,8 @@
 
 package com.liferay.poshi.runner.elements;
 
+import com.liferay.poshi.runner.script.PoshiScriptParserException;
+
 import org.dom4j.Attribute;
 import org.dom4j.tree.DefaultAttribute;
 
@@ -50,7 +52,8 @@ public class PoshiElementAttribute
 	}
 
 	@Override
-	public void parsePoshiScript(String poshiScript) {
+	public void parsePoshiScript(String poshiScript)
+		throws PoshiScriptParserException {
 	}
 
 	@Override
