@@ -18,7 +18,6 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.internal.WrapsDriver;
 
 /**
  * @author Brian Wing Shun Chan
@@ -43,12 +42,8 @@ public class SafariWebDriverImpl extends BaseWebDriverImpl {
 		else {
 			WebElement webElement = getWebElement(locator);
 
-			WrapsDriver wrapsDriver = (WrapsDriver)webElement;
-
-			WebDriver wrappedWebDriver = wrapsDriver.getWrappedDriver();
-
-			JavascriptExecutor javascriptExecutor =
-				(JavascriptExecutor)wrappedWebDriver;
+			JavascriptExecutor javascriptExecutor = createJavascriptExecutor(
+				webElement);
 
 			try {
 				javascriptExecutor.executeScript(
