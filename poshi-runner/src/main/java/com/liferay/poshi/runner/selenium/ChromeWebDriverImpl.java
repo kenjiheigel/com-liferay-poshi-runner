@@ -14,6 +14,7 @@
 
 package com.liferay.poshi.runner.selenium;
 
+import java.util.List;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -133,28 +134,40 @@ public class ChromeWebDriverImpl extends BaseWebDriverImpl {
 			return super.getWebElement(locator, timeout);
 		}
 		catch (RuntimeException re) {
-			Stack<WebElement> frameWebElements = getFrameWebElements();
-
-			if (!frameWebElements.isEmpty()) {
-				if (frameWebElements.peek() instanceof RetryWebElementImpl) {
-					RetryWebElementImpl frameWebElement =
-						(RetryWebElementImpl)frameWebElements.peek();
-
-					String frameWebElementLocator =
-						frameWebElement.getLocator();
-
-					frameWebElements.pop();
-
-					frameWebElements.push(
-						getWebElement(frameWebElementLocator));
-
-					WebDriver.TargetLocator targetLocator = switchTo();
-
-					targetLocator.frame(frameWebElements.peek());
-				}
-			}
+			_refreshFrameWebElements();
 
 			throw re;
+		}
+	}
+
+	protected List<WebElement> getWebElements(String locator, String timeout) {
+		List<WebElement> webElements = super.getWebElements(locator, timeout);
+
+		if (webElements.isEmpty()) {
+			_refreshFrameWebElements();
+		}
+
+		return webElements;
+	}
+
+	private void _refreshFrameWebElements() {
+		Stack<WebElement> frameWebElements = getFrameWebElements();
+
+		if (!frameWebElements.isEmpty()) {
+			if (frameWebElements.peek() instanceof RetryWebElementImpl) {
+				RetryWebElementImpl frameWebElement =
+					(RetryWebElementImpl)frameWebElements.peek();
+
+				String frameWebElementLocator = frameWebElement.getLocator();
+
+				frameWebElements.pop();
+
+				frameWebElements.push(getWebElement(frameWebElementLocator));
+
+				WebDriver.TargetLocator targetLocator = switchTo();
+
+				targetLocator.frame(frameWebElements.peek());
+			}
 		}
 	}
 
