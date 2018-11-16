@@ -19,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -110,7 +111,13 @@ public class ChromeWebDriverImpl extends BaseWebDriverImpl {
 			Matcher matcher = _cannotFocusElementErrorPattern.matcher(message);
 
 			if (matcher.find()) {
-				click(locator);
+				WebElement webElement = getWebElement(locator);
+
+				JavascriptExecutor javascriptExecutor =
+					createJavascriptExecutor(webElement);
+
+				javascriptExecutor.executeScript(
+					"arguments[0].focus();", webElement);
 
 				super.typeKeys(locator, value);
 
