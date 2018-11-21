@@ -91,9 +91,9 @@ public class PoshiRunner {
 				poshiTestFileIncludes, PropsValues.TEST_SUBREPO_DIRS);
 		}
 
-		for (String testName : testNames) {
-			PoshiRunnerValidation.validate(testName);
+		PoshiRunnerValidation.validate();
 
+		for (String testName : testNames) {
 			String namespace =
 				PoshiRunnerGetterUtil.
 					getNamespaceFromNamespacedClassCommandName(testName);
