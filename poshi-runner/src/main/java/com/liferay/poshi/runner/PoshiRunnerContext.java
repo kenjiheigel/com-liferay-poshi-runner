@@ -491,6 +491,31 @@ public class PoshiRunnerContext {
 					" test class command names:");
 		System.out.println(propertyQuery);
 
+		try {
+			PoshiRunnerValidation.validate();
+		}
+		catch (Exception e) {
+			System.out.println(
+				"Poshi validation issues occurred. Functional batch " +
+					"properties will not be created, resulting in functional " +
+						"tests being skipped.");
+
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("SKIPPED_TEST_CASE_METHOD_GROUP_0=");
+
+			for (String namespacedClassCommandName :
+					namespacedClassCommandNames) {
+
+				sb.append(namespacedClassCommandName);
+				sb.append(",");
+			}
+
+			sb.setLength(sb.length() - 1);
+
+			return sb.toString();
+		}
+
 		if (PropsValues.TEST_BATCH_RUN_TYPE.equals("sequential")) {
 			return _getTestBatchSequentialGroups(namespacedClassCommandNames);
 		}
