@@ -115,12 +115,6 @@ public class PoshiRunnerValidation {
 		}
 	}
 
-	public static void validate(String testName) throws Exception {
-		validateTestName(testName);
-
-		validate();
-	}
-
 	protected static String getPrimaryAttributeName(
 		Element element, List<String> multiplePrimaryAttributeNames,
 		List<String> primaryAttributeNames, String filePath) {
