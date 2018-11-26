@@ -494,7 +494,8 @@ public class PoshiRunnerContext {
 		if (PropsValues.TEST_BATCH_RUN_TYPE.equals("sequential")) {
 			return _getTestBatchSequentialGroups(namespacedClassCommandNames);
 		}
-		else if (PropsValues.TEST_BATCH_RUN_TYPE.equals("single")) {
+
+		if (PropsValues.TEST_BATCH_RUN_TYPE.equals("single")) {
 			return _getTestBatchSingleGroups(namespacedClassCommandNames);
 		}
 

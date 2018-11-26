@@ -80,20 +80,29 @@ public class PoshiRunnerValidation {
 					className, namespace);
 
 				validateFunctionFile(element, filePath);
+
+				continue;
 			}
-			else if (classType.equals("macro")) {
+
+			if (classType.equals("macro")) {
 				Element element = PoshiRunnerContext.getMacroRootElement(
 					className, namespace);
 
 				validateMacroFile(element, filePath);
+
+				continue;
 			}
-			else if (classType.equals("path")) {
+
+			if (classType.equals("path")) {
 				Element element = PoshiRunnerContext.getPathRootElement(
 					className, namespace);
 
 				validatePathFile(element, filePath);
+
+				continue;
 			}
-			else if (classType.equals("test-case")) {
+
+			if (classType.equals("test-case")) {
 				Element element = PoshiRunnerContext.getTestCaseRootElement(
 					className, namespace);
 
