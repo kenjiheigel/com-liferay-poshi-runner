@@ -1471,6 +1471,8 @@ public class PoshiRunnerContext {
 	}
 
 	private static void _writeTestCSVReportFile() throws Exception {
+		PoshiRunnerValidation.validate();
+
 		if (PropsValues.TEST_CSV_REPORT_PROPERTY_NAMES == null) {
 			return;
 		}
@@ -1556,6 +1558,8 @@ public class PoshiRunnerContext {
 	}
 
 	private static void _writeTestGeneratedProperties() throws Exception {
+		PoshiRunnerValidation.validate();
+
 		StringBuilder sb = new StringBuilder();
 
 		for (String testCaseNamespacedClassCommandName :
