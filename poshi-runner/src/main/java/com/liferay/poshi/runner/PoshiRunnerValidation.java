@@ -63,6 +63,10 @@ public class PoshiRunnerValidation {
 	}
 
 	public static void validate() throws Exception {
+		if (_validated) {
+			return;
+		}
+
 		for (String filePath : PoshiRunnerContext.getFilePaths()) {
 			if (OSDetector.isWindows()) {
 				filePath = filePath.replace("/", "\\");
@@ -109,6 +113,8 @@ public class PoshiRunnerValidation {
 				validateTestCaseFile(element, filePath);
 			}
 		}
+
+		_validated = true;
 
 		if (!_exceptions.isEmpty()) {
 			_throwExceptions();
@@ -1780,6 +1786,7 @@ public class PoshiRunnerValidation {
 
 	private static final Set<Exception> _exceptions = new HashSet<>();
 	private static final Pattern _pattern = Pattern.compile("\\$\\{([^}]*)\\}");
+	private static boolean _validated;
 
 	private static class ValidationException extends Exception {
 
