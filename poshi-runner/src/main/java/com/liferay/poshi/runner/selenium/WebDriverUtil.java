@@ -163,7 +163,6 @@ public class WebDriverUtil extends PropsValues {
 	}
 
 	private WebDriver _getFirefoxDriver() {
-		System.setProperty("webdriver.firefox.marionette", "false");
 		System.setProperty(
 			"webdriver.gecko.driver",
 			SELENIUM_EXECUTABLE_DIR_NAME + SELENIUM_GECKO_DRIVER_EXECUTABLE);
@@ -201,19 +200,28 @@ public class WebDriverUtil extends PropsValues {
 
 		firefoxOptions.setCapability("locationContextEnabled", false);
 
-		try {
-			FirefoxProfile firefoxProfile = new FirefoxProfile();
+		if (Double.parseDouble(PropsValues.BROWSER_VERSION) < 57) {
+			System.setProperty("webdriver.firefox.marionette", "false");
 
-			firefoxProfile.addExtension(
-				WebDriverUtil.class,
-				"/META-INF/resources/firefox/extensions/jserrorcollector.xpi");
+			try {
+				FirefoxProfile firefoxProfile = new FirefoxProfile();
 
-			firefoxOptions.setProfile(firefoxProfile);
+				firefoxProfile.addExtension(
+					WebDriverUtil.class,
+					"/META-INF/resources/firefox/extensions/" +
+						"jserrorcollector.xpi");
+
+				firefoxOptions.setProfile(firefoxProfile);
+			}
+			catch (Exception e) {
+				System.out.println(
+					"Unable to add the jserrorcollector.xpi extension to the " +
+						"Firefox profile.");
+			}
 		}
-		catch (Exception e) {
+		else {
 			System.out.println(
-				"Unable to add the jserrorcollector.xpi extension to the " +
-					"Firefox profile.");
+				"Javascript error assertion is not available as of Firefox 57");
 		}
 
 		return new FirefoxDriver(firefoxOptions);

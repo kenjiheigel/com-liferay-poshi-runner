@@ -14,6 +14,7 @@
 
 package com.liferay.poshi.runner.selenium;
 
+import com.liferay.poshi.runner.util.PropsValues;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -23,6 +24,15 @@ public class FirefoxWebDriverImpl extends BaseWebDriverImpl {
 
 	public FirefoxWebDriverImpl(String browserURL, WebDriver webDriver) {
 		super(browserURL, webDriver);
+	}
+
+	@Override
+	public void assertJavaScriptErrors(String ignoreJavaScriptError)
+		throws Exception {
+
+		if (Double.parseDouble(PropsValues.BROWSER_VERSION) >= 57) {
+			return;
+		}
 	}
 
 }
