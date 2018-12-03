@@ -15,7 +15,11 @@
 package com.liferay.poshi.runner.selenium;
 
 import com.liferay.poshi.runner.util.PropsValues;
+
+import java.util.Stack;
+
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 /**
  * @author Brian Wing Shun Chan
@@ -32,6 +36,26 @@ public class FirefoxWebDriverImpl extends BaseWebDriverImpl {
 
 		if (Double.parseDouble(PropsValues.BROWSER_VERSION) >= 57) {
 			return;
+		}
+	}
+
+	@Override
+	public void selectFrame(String locator) {
+		if (Double.parseDouble(PropsValues.BROWSER_VERSION) >= 57) {
+			if (locator.equals("relative=top")) {
+				WebDriver.TargetLocator targetLocator = switchTo();
+
+				targetLocator.defaultContent();
+
+				switchTo().defaultContent();
+
+				Stack<WebElement> frameWebElements = getFrameWebElements();
+
+				frameWebElements = new Stack<>();
+			}
+			else {
+				super.selectFrame(locator);
+			}
 		}
 	}
 
