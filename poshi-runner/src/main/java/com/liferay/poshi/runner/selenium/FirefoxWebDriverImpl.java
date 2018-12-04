@@ -14,6 +14,7 @@
 
 package com.liferay.poshi.runner.selenium;
 
+import com.liferay.poshi.runner.util.GetterUtil;
 import com.liferay.poshi.runner.util.PropsValues;
 
 import java.util.Stack;
@@ -34,14 +35,14 @@ public class FirefoxWebDriverImpl extends BaseWebDriverImpl {
 	public void assertJavaScriptErrors(String ignoreJavaScriptError)
 		throws Exception {
 
-		if (Double.parseDouble(PropsValues.BROWSER_VERSION) >= 57) {
+		if (GetterUtil.getDouble(PropsValues.BROWSER_VERSION) >= 57) {
 			return;
 		}
 	}
 
 	@Override
 	public void selectFrame(String locator) {
-		if (Double.parseDouble(PropsValues.BROWSER_VERSION) >= 57) {
+		if (GetterUtil.getDouble(PropsValues.BROWSER_VERSION) >= 57) {
 			if (locator.equals("relative=top")) {
 				WebDriver.TargetLocator targetLocator = switchTo();
 

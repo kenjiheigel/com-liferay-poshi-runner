@@ -14,6 +14,7 @@
 
 package com.liferay.poshi.runner.selenium;
 
+import com.liferay.poshi.runner.util.GetterUtil;
 import com.liferay.poshi.runner.util.OSDetector;
 import com.liferay.poshi.runner.util.PropsValues;
 import com.liferay.poshi.runner.util.StringPool;
@@ -200,7 +201,7 @@ public class WebDriverUtil extends PropsValues {
 
 		firefoxOptions.setCapability("locationContextEnabled", false);
 
-		if (Double.parseDouble(PropsValues.BROWSER_VERSION) < 57) {
+		if (GetterUtil.getDouble(PropsValues.BROWSER_VERSION) < 57) {
 			System.setProperty("webdriver.firefox.marionette", "false");
 
 			try {
@@ -208,8 +209,8 @@ public class WebDriverUtil extends PropsValues {
 
 				firefoxProfile.addExtension(
 					WebDriverUtil.class,
-					"/META-INF/resources/firefox/extensions/" +
-						"jserrorcollector.xpi");
+					"/META-INF/resources/firefox/extensions" +
+						"/jserrorcollector.xpi");
 
 				firefoxOptions.setProfile(firefoxProfile);
 			}
