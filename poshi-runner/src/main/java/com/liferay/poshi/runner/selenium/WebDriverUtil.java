@@ -25,6 +25,7 @@ import io.appium.java_client.ios.IOSDriver;
 
 import java.io.File;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -119,6 +120,14 @@ public class WebDriverUtil extends PropsValues {
 
 		String outputDirName = PropsValues.OUTPUT_DIR_NAME;
 
+		try {
+			File file = new File(outputDirName);
+
+			outputDirName = file.getCanonicalPath();
+		}
+		catch (IOException ioe) {
+		}
+
 		if (OSDetector.isWindows()) {
 			outputDirName = StringUtil.replace(
 				outputDirName, StringPool.FORWARD_SLASH, StringPool.BACK_SLASH);
@@ -128,7 +137,9 @@ public class WebDriverUtil extends PropsValues {
 
 		preferences.put("download.prompt_for_download", false);
 
-		chromeOptions.setCapability("chrome.prefs", preferences);
+		preferences.put("profile.default_content_settings.popups", 0);
+
+		chromeOptions.setExperimentalOption("prefs", preferences);
 
 		if (Validator.isNotNull(PropsValues.BROWSER_CHROME_BIN_ARGS)) {
 			chromeOptions.addArguments(PropsValues.BROWSER_CHROME_BIN_ARGS);
