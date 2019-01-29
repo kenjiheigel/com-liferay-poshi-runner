@@ -14,9 +14,9 @@
 
 package com.liferay.poshi.runner.elements;
 
-import com.liferay.poshi.runner.PoshiRunnerContext;
 import com.liferay.poshi.runner.script.PoshiScriptParserException;
 import com.liferay.poshi.runner.util.RegexUtil;
+import com.liferay.poshi.runner.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,31 +98,7 @@ public class ExecutePoshiElement extends PoshiElement {
 		String executeCommandName = RegexUtil.getGroup(
 			poshiScript, "([^\\s]*?)\\(", 1);
 
-		boolean namespacedCommandName = false;
-
-		for (String namespace : PoshiRunnerContext.getNamespaces()) {
-			if (executeCommandName.startsWith(namespace + ".")) {
-				namespacedCommandName = true;
-
-				break;
-			}
-		}
-
-		if (namespacedCommandName) {
-			int index = executeCommandName.indexOf(".");
-
-			String namespace = executeCommandName.substring(0, index);
-
-			executeCommandName = executeCommandName.replace(
-				namespace + ".", "");
-
-			executeCommandName = executeCommandName.replace(".", "#");
-
-			executeCommandName = namespace + "." + executeCommandName;
-		}
-		else {
-			executeCommandName = executeCommandName.replace(".", "#");
-		}
+		executeCommandName = _replaceLast("#", ".", executeCommandName);
 
 		if (fileExtension.equals("function") ||
 			isValidFunctionFileName(poshiScript)) {
@@ -360,6 +336,16 @@ public class ExecutePoshiElement extends PoshiElement {
 		}
 
 		return false;
+	}
+
+	private String _replaceLast(
+		String replacement, String target, String text) {
+
+		text = StringUtil.reverse(text);
+
+		text = text.replaceFirst(Pattern.quote(target), replacement);
+
+		return StringUtil.reverse(text);
 	}
 
 	private static final String _ELEMENT_NAME = "execute";

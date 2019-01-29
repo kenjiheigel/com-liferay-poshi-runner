@@ -177,10 +177,6 @@ public class PoshiRunnerContext {
 		return getDefaultNamespace();
 	}
 
-	public static List<String> getNamespaces() {
-		return _namespaces;
-	}
-
 	public static String getOverrideClassName(String namespacedClassName) {
 		return _overrideClassNames.get(namespacedClassName);
 	}
