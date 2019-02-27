@@ -150,7 +150,7 @@ public class PoshiRunnerValidation {
 			"return", "take-screenshot", "task", "var", "while");
 
 		if (Validator.isNotNull(filePath) && filePath.endsWith(".function")) {
-			possibleElementNames = Arrays.asList("execute", "if");
+			possibleElementNames = Arrays.asList("execute", "if", "var");
 		}
 
 		for (Element childElement : childElements) {
