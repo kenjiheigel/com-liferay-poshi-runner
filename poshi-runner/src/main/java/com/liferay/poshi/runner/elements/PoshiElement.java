@@ -72,14 +72,6 @@ public abstract class PoshiElement
 		return clone(null, poshiScript);
 	}
 
-	public int getPoshiScriptLineNumber(Boolean includeAnnotation) {
-		if (includeAnnotation) {
-			return PoshiNode.super.getPoshiScriptLineNumber();
-		}
-
-		return getPoshiScriptLineNumber();
-	}
-
 	public String getPoshiLogDescriptor() {
 		return getPoshiScript();
 	}
@@ -91,6 +83,14 @@ public abstract class PoshiElement
 		}
 
 		return _poshiScript;
+	}
+
+	public int getPoshiScriptLineNumber(Boolean includeAnnotation) {
+		if (includeAnnotation) {
+			return PoshiNode.super.getPoshiScriptLineNumber();
+		}
+
+		return getPoshiScriptLineNumber();
 	}
 
 	public boolean isPoshiScriptComment(String poshiScript) {
