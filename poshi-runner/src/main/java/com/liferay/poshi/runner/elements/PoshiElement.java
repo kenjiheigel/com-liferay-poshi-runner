@@ -86,11 +86,17 @@ public abstract class PoshiElement
 	}
 
 	public int getPoshiScriptLineNumber(Boolean includeAnnotation) {
-		if (includeAnnotation) {
-			return PoshiNode.super.getPoshiScriptLineNumber();
+		int poshiScriptLineNumber = PoshiNode.super.getPoshiScriptLineNumber();
+
+		if (!includeAnnotation) {
+			String poshiScript = getPoshiScript();
+
+			String blockName = getBlockName(poshiScript);
+
+			poshiScriptLineNumber += StringUtil.count(blockName, "\n");
 		}
 
-		return getPoshiScriptLineNumber();
+		return poshiScriptLineNumber;
 	}
 
 	public boolean isPoshiScriptComment(String poshiScript) {
