@@ -502,6 +502,18 @@ public class StringUtil {
 		return sb.substring(0, lengthInt);
 	}
 
+	public static String regexReplaceAll(
+		String s, String regex, String replacement) {
+
+		return s.replaceAll(regex,replacement);
+	}
+
+	public static String regexReplaceFirst(
+		String s, String regex, String replacement) {
+
+		return s.replaceFirst(regex,replacement);
+	}
+
 	public static String removeSpaces(String s) {
 		return s.replaceAll(" ", "");
 	}
