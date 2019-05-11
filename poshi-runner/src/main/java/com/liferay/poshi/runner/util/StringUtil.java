@@ -654,8 +654,7 @@ public class StringUtil {
 			}
 		}
 
-		Integer[] splitIndexArray = splitIndexSet.toArray(
-			new Integer[splitIndexSet.size()]);
+		Integer[] splitIndexArray = splitIndexSet.toArray(new Integer[0]);
 
 		Arrays.sort(splitIndexArray);
 
@@ -908,7 +907,7 @@ public class StringUtil {
 			stringList.add(string);
 		}
 
-		return stringList.toArray(new String[stringList.size()]);
+		return stringList.toArray(new String[0]);
 	}
 
 }

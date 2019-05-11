@@ -210,8 +210,7 @@ public class PoshiRunner {
 			testClassFileGlobsSet.add("**/" + testClassName + ".testcase");
 		}
 
-		return testClassFileGlobsSet.toArray(
-			new String[testClassFileGlobsSet.size()]);
+		return testClassFileGlobsSet.toArray(new String[0]);
 	}
 
 	private void _runCommand() throws Exception {
