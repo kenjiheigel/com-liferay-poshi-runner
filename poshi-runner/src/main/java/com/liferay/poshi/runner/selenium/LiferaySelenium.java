@@ -254,11 +254,14 @@ public interface LiferaySelenium {
 
 	public boolean isNotEditable(String locator) throws Exception;
 
-	public boolean isNotPartialText(String locator, String value) throws Exception;
+	public boolean isNotPartialText(String locator, String value)
+		throws Exception;
 
-	public boolean isNotPartialTextAceEditor(String locator, String value) throws Exception;
+	public boolean isNotPartialTextAceEditor(String locator, String value)
+		throws Exception;
 
-	public boolean isNotSelectedLabel(String selectLocator, String pattern) throws Exception;
+	public boolean isNotSelectedLabel(String selectLocator, String pattern)
+		throws Exception;
 
 	public boolean isNotText(String locator, String value) throws Exception;
 
@@ -272,12 +275,14 @@ public interface LiferaySelenium {
 
 	public boolean isPartialText(String locator, String value) throws Exception;
 
-	public boolean isPartialTextAceEditor(String locator, String value) throws Exception;
+	public boolean isPartialTextAceEditor(String locator, String value)
+		throws Exception;
 
 	public boolean isPartialTextCaseInsensitive(String locator, String value)
 		throws Exception;
 
-	public boolean isSelectedLabel(String selectLocator, String pattern) throws Exception;
+	public boolean isSelectedLabel(String selectLocator, String pattern)
+		throws Exception;
 
 	public boolean isSikuliImagePresent(String image) throws Exception;
 

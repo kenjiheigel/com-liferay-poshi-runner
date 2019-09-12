@@ -1622,17 +1622,23 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	}
 
 	@Override
-	public boolean isNotPartialText(String locator, String value) throws Exception {
+	public boolean isNotPartialText(String locator, String value)
+		throws Exception {
+
 		return !isPartialText(locator, value);
 	}
 
 	@Override
-	public boolean isNotPartialTextAceEditor(String locator, String value) throws Exception {
+	public boolean isNotPartialTextAceEditor(String locator, String value)
+		throws Exception {
+
 		return !isPartialTextAceEditor(locator, value);
 	}
 
 	@Override
-	public boolean isNotSelectedLabel(String selectLocator, String pattern) throws Exception {
+	public boolean isNotSelectedLabel(String selectLocator, String pattern)
+		throws Exception {
+
 		Condition notSelectedLabel = notSelectedLabel(selectLocator, pattern);
 
 		return notSelectedLabel.evaluate();
@@ -1664,14 +1670,18 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	}
 
 	@Override
-	public boolean isPartialText(String locator, String value) throws Exception {
+	public boolean isPartialText(String locator, String value)
+		throws Exception {
+
 		Condition partialText = partialText(locator, value);
 
 		return partialText.evaluate();
 	}
 
 	@Override
-	public boolean isPartialTextAceEditor(String locator, String value) throws Exception {
+	public boolean isPartialTextAceEditor(String locator, String value)
+		throws Exception {
+
 		Condition partialTextAceEditor = partialTextAceEditor(locator, value);
 
 		return partialTextAceEditor.evaluate();
@@ -1681,13 +1691,16 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	public boolean isPartialTextCaseInsensitive(String locator, String value)
 		throws Exception {
 
-		Condition partialTextCaseInsensitive = partialTextCaseInsensitive(locator, value);
+		Condition partialTextCaseInsensitive = partialTextCaseInsensitive(
+			locator, value);
 
 		return partialTextCaseInsensitive.evaluate();
 	}
 
 	@Override
-	public boolean isSelectedLabel(String selectLocator, String pattern) throws Exception {
+	public boolean isSelectedLabel(String selectLocator, String pattern)
+		throws Exception {
+
 		Condition selectedLabel = selectedLabel(selectLocator, pattern);
 
 		return selectedLabel.evaluate();
@@ -3226,7 +3239,8 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 			String locator, String pattern)
 		throws Exception {
 
-		Condition partialTextCaseInsensitive = partialTextCaseInsensitive(locator, pattern);
+		Condition partialTextCaseInsensitive = partialTextCaseInsensitive(
+			locator, pattern);
 
 		partialTextCaseInsensitive.waitFor();
 	}
