@@ -264,11 +264,11 @@ public interface LiferaySelenium {
 
 	public boolean isNotValue(String locator, String value) throws Exception;
 
-	public boolean isNotVisible(String locator);
+	public boolean isNotVisible(String locator) throws Exception;
 
-	public boolean isNotVisibleInPage(String locator);
+	public boolean isNotVisibleInPage(String locator) throws Exception;
 
-	public boolean isNotVisibleInViewport(String locator);
+	public boolean isNotVisibleInViewport(String locator) throws Exception;
 
 	public boolean isPartialText(String locator, String value);
 
@@ -296,11 +296,11 @@ public interface LiferaySelenium {
 
 	public boolean isValue(String locator, String value) throws Exception;
 
-	public boolean isVisible(String locator);
+	public boolean isVisible(String locator) throws Exception;
 
-	public boolean isVisibleInPage(String locator);
+	public boolean isVisibleInPage(String locator) throws Exception;
 
-	public boolean isVisibleInViewport(String locator);
+	public boolean isVisibleInViewport(String locator) throws Exception;
 
 	public void javaScriptClick(String locator);
 

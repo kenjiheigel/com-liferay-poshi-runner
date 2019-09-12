@@ -584,8 +584,6 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 	@Override
 	public void assertNotVisible(String locator) throws Exception {
-		assertElementPresent(locator);
-
 		if (isVisible(locator)) {
 			throw new Exception("Element is visible at \"" + locator + "\"");
 		}
@@ -593,8 +591,6 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 	@Override
 	public void assertNotVisibleInPage(String locator) throws Exception {
-		assertElementPresent(locator);
-
 		if (isVisibleInPage(locator)) {
 			throw new Exception(
 				"Element is visible in page at \"" + locator + "\"");
@@ -765,8 +761,6 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 	@Override
 	public void assertVisible(String locator) throws Exception {
-		assertElementPresent(locator);
-
 		if (isNotVisible(locator)) {
 			throw new Exception(
 				"Element is not visible at \"" + locator + "\"");
@@ -775,8 +769,6 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 	@Override
 	public void assertVisibleInPage(String locator) throws Exception {
-		assertElementPresent(locator);
-
 		if (isNotVisibleInPage(locator)) {
 			throw new Exception(
 				"Element is not visible in page at \"" + locator + "\"");
@@ -785,8 +777,6 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 	@Override
 	public void assertVisibleInViewport(String locator) throws Exception {
-		assertElementPresent(locator);
-
 		if (isNotVisibleInViewport(locator)) {
 			throw new Exception(
 				"Element is not visible in viewport at \"" + locator + "\"");
@@ -1665,17 +1655,17 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	}
 
 	@Override
-	public boolean isNotVisible(String locator) {
+	public boolean isNotVisible(String locator) throws Exception {
 		return !isVisible(locator);
 	}
 
 	@Override
-	public boolean isNotVisibleInPage(String locator) {
+	public boolean isNotVisibleInPage(String locator) throws Exception {
 		return !isVisibleInPage(locator);
 	}
 
 	@Override
-	public boolean isNotVisibleInViewport(String locator) {
+	public boolean isNotVisibleInViewport(String locator) throws Exception {
 		return !isVisibleInViewport(locator);
 	}
 
@@ -1788,12 +1778,14 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	}
 
 	@Override
-	public boolean isVisible(String locator) {
+	public boolean isVisible(String locator) throws Exception {
 		return isVisibleInPage(locator);
 	}
 
 	@Override
-	public boolean isVisibleInPage(String locator) {
+	public boolean isVisibleInPage(String locator) throws Exception {
+		assertElementPresent(locator);
+
 		WebElement webElement = getWebElement(locator);
 
 		scrollWebElementIntoView(webElement);
@@ -1802,7 +1794,9 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	}
 
 	@Override
-	public boolean isVisibleInViewport(String locator) {
+	public boolean isVisibleInViewport(String locator) throws Exception {
+		assertElementPresent(locator);
+
 		WebElement webElement = getWebElement(locator);
 
 		return webElement.isDisplayed();
