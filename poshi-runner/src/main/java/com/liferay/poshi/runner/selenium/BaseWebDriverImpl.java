@@ -291,7 +291,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	public void assertConfirmation(String pattern) throws Exception {
 		Condition confirmation = confirmation(pattern);
 
-		confirmation.affirm();
+		confirmation.assertTrue();
 	}
 
 	@Override
@@ -303,14 +303,14 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	public void assertConsoleTextNotPresent(String text) throws Exception {
 		Condition consoleTextNotPresent = consoleTextNotPresent(text);
 
-		consoleTextNotPresent.affirm();
+		consoleTextNotPresent.assertTrue();
 	}
 
 	@Override
 	public void assertConsoleTextPresent(String text) throws Exception {
 		Condition consoleTextPresent = consoleTextPresent(text);
 
-		consoleTextPresent.affirm();
+		consoleTextPresent.assertTrue();
 	}
 
 	@Override
@@ -332,21 +332,21 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	public void assertEditable(String locator) throws Exception {
 		Condition editable = editable(locator);
 
-		editable.affirm();
+		editable.assertTrue();
 	}
 
 	@Override
 	public void assertElementNotPresent(String locator) throws Exception {
 		Condition elementNotPresent = elementNotPresent(locator);
 
-		elementNotPresent.affirm();
+		elementNotPresent.assertTrue();
 	}
 
 	@Override
 	public void assertElementPresent(String locator) throws Exception {
 		Condition elementPresent = elementPresent(locator);
 
-		elementPresent.affirm();
+		elementPresent.assertTrue();
 	}
 
 	@Override
@@ -510,7 +510,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	public void assertNotEditable(String locator) throws Exception {
 		Condition notEditable = notEditable(locator);
 
-		notEditable.affirm();
+		notEditable.assertTrue();
 	}
 
 	@Override
@@ -526,7 +526,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition notPartialText = notPartialText(locator, pattern);
 
-		notPartialText.affirm();
+		notPartialText.assertTrue();
 	}
 
 	@Override
@@ -537,7 +537,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition notSelectedLabel = notSelectedLabel(selectLocator, pattern);
 
-		notSelectedLabel.affirm();
+		notSelectedLabel.assertTrue();
 	}
 
 	@Override
@@ -546,7 +546,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition notText = notText(locator, pattern);
 
-		notText.affirm();
+		notText.assertTrue();
 	}
 
 	@Override
@@ -557,7 +557,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition notValue = notValue(locator, pattern);
 
-		notValue.affirm();
+		notValue.assertTrue();
 	}
 
 	@Override
@@ -566,7 +566,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition notVisible = notVisible(locator);
 
-		notVisible.affirm();
+		notVisible.assertTrue();
 	}
 
 	@Override
@@ -575,7 +575,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition notVisibleInPage = notVisibleInPage(locator);
 
-		notVisibleInPage.affirm();
+		notVisibleInPage.assertTrue();
 	}
 
 	@Override
@@ -584,7 +584,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition notVisibleInViewport = notVisibleInViewport(locator);
 
-		notVisibleInViewport.affirm();
+		notVisibleInViewport.assertTrue();
 	}
 
 	@Override
@@ -616,7 +616,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition partialText = partialText(locator, pattern);
 
-		partialText.affirm();
+		partialText.assertTrue();
 	}
 
 	@Override
@@ -627,7 +627,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition partialTextAceEditor = partialTextAceEditor(locator, pattern);
 
-		partialTextAceEditor.affirm();
+		partialTextAceEditor.assertTrue();
 	}
 
 	@Override
@@ -639,7 +639,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		Condition partialTextCaseInsensitive = partialTextCaseInsensitive(
 			locator, pattern);
 
-		partialTextCaseInsensitive.affirm();
+		partialTextCaseInsensitive.assertTrue();
 	}
 
 	@Override
@@ -661,7 +661,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition selectedLabel = selectedLabel(selectLocator, pattern);
 
-		selectedLabel.affirm();
+		selectedLabel.assertTrue();
 	}
 
 	@Override
@@ -670,7 +670,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition text = text(locator, pattern);
 
-		text.affirm();
+		text.assertTrue();
 	}
 
 	@Override
@@ -679,21 +679,21 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition textCaseInsensitive = textCaseInsensitive(locator, pattern);
 
-		textCaseInsensitive.affirm();
+		textCaseInsensitive.assertTrue();
 	}
 
 	@Override
 	public void assertTextNotPresent(String pattern) throws Exception {
 		Condition textNotPresent = textNotPresent(pattern);
 
-		textNotPresent.affirm();
+		textNotPresent.assertTrue();
 	}
 
 	@Override
 	public void assertTextPresent(String pattern) throws Exception {
 		Condition textPresent = textPresent(pattern);
 
-		textPresent.affirm();
+		textPresent.assertTrue();
 	}
 
 	@Override
@@ -702,7 +702,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition value = value(locator, pattern);
 
-		value.affirm();
+		value.assertTrue();
 	}
 
 	@Override
@@ -711,7 +711,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition visible = visible(locator);
 
-		visible.affirm();
+		visible.assertTrue();
 	}
 
 	@Override
@@ -720,7 +720,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition visibleInPage = visibleInPage(locator);
 
-		visibleInPage.affirm();
+		visibleInPage.assertTrue();
 	}
 
 	@Override
@@ -729,7 +729,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		Condition visibleInViewport = visibleInViewport(locator);
 
-		visibleInViewport.affirm();
+		visibleInViewport.assertTrue();
 	}
 
 	@Override
@@ -3339,7 +3339,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (!evaluate()) {
 					String message = StringUtil.combine(
 						"Expected text \"", pattern,
@@ -3847,7 +3847,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (!evaluate()) {
 					String message = StringUtil.combine(
 						"\"", getText(locator), "\" contains \"", value,
@@ -3869,7 +3869,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (isSelectedLabel(selectLocator, pattern)) {
 					String message = StringUtil.combine(
 						"Pattern \"", pattern, "\" matches \"",
@@ -3899,7 +3899,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (!evaluate()) {
 					String message = StringUtil.combine(
 						"Pattern \"", value, "\" matches \"", getText(locator),
@@ -3921,7 +3921,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (!evaluate()) {
 					String message = StringUtil.combine(
 						"Pattern \"", value, "\" matches \"",
@@ -3983,7 +3983,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (!evaluate()) {
 					String message = StringUtil.combine(
 						"Actual text \"", getText(locator),
@@ -4010,7 +4010,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (!evaluate()) {
 					String message = StringUtil.combine(
 						"Actual text \"", getTextAceEditor(locator),
@@ -4041,7 +4041,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (!evaluate()) {
 					String message = StringUtil.combine(
 						"Actual text \"", getText(locator),
@@ -4145,7 +4145,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (isNotSelectedLabel(selectLocator, pattern)) {
 					String message = StringUtil.combine(
 						"Expected text \"", pattern,
@@ -4181,7 +4181,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (!evaluate()) {
 					String message = StringUtil.combine(
 						"Expected text \"", value,
@@ -4204,7 +4204,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (!evaluate()) {
 					String message = StringUtil.combine(
 						"Expected text \"", value,
@@ -4259,7 +4259,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return new Condition() {
 
 			@Override
-			public void affirm() throws Exception {
+			public void assertTrue() throws Exception {
 				if (!evaluate()) {
 					String message = StringUtil.combine(
 						"Expected text \"", value,
@@ -4335,7 +4335,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 			_message = message;
 		}
 
-		public void affirm() throws Exception {
+		public void assertTrue() throws Exception {
 			if (!evaluate()) {
 				throw new Exception(_message);
 			}
@@ -4346,7 +4346,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		public void waitFor() throws Exception {
 			for (int second = 0;; second++) {
 				if (second >= PropsValues.TIMEOUT_EXPLICIT_WAIT) {
-					affirm();
+					assertTrue();
 				}
 
 				try {
