@@ -3699,6 +3699,86 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		alert.accept();
 	}
 
+	protected Condition confirmation(String pattern) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return pattern.equals(getConfirmation());
+			}
+
+		};
+	}
+
+	protected Condition consoleTextNotPresent(String text) {
+		String message = "\"" + text + "\" is present in console";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return !LiferaySeleniumHelper.isConsoleTextPresent(text);
+			}
+
+		};
+	}
+
+	protected Condition consoleTextPresent(String text) {
+		String message = "\"" + text + "\" is not present in console";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return LiferaySeleniumHelper.isConsoleTextPresent(text);
+			}
+
+		};
+	}
+
+	protected Condition editable(String locator) {
+		String message = "Element is not editable at \"" + locator + "\"";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				WebElement webElement = getWebElement(locator);
+
+				return webElement.isEnabled();
+			}
+
+		};
+	}
+
+	protected Condition elementNotPresent(String locator) {
+		String message = "Element is present at \"" + locator + "\"";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return !isElementPresent(locator);
+			}
+
+		};
+	}
+
+	protected Condition elementPresent(String locator) {
+		String message = "Element is not present at \"" + locator + "\"";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				List<WebElement> webElements = getWebElements(locator);
+
+				return !webElements.isEmpty();
+			}
+
+		};
+	}
+
 	protected void executeJavaScriptEvent(
 		String locator, String eventType, String event) {
 
@@ -4102,6 +4182,157 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		return false;
 	}
 
+	protected Condition notEditable(String locator) {
+		String message = "Element is editable at \"" + locator + "\"";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return !isEditable(locator);
+			}
+
+		};
+	}
+
+	protected Condition notPartialText(String locator, String value) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return !isPartialText(locator, value);
+			}
+
+		};
+	}
+
+	protected Condition notSelectedLabel(String selectLocator, String pattern) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				if (isElementNotPresent(selectLocator)) {
+					return false;
+				}
+
+				List<String> selectedLabelsList = Arrays.asList(
+					getSelectedLabels(selectLocator));
+
+				return !selectedLabelsList.contains(pattern);
+			}
+
+		};
+	}
+
+	protected Condition notText(String locator, String value) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return !isText(locator, value);
+			}
+
+		};
+	}
+
+	protected Condition notValue(String locator, String value) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return !isValue(locator, value);
+			}
+
+		};
+	}
+
+	protected Condition notVisible(String locator) {
+		String message = "Element is visible at \"" + locator + "\"";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return !isVisible(locator);
+			}
+
+		};
+	}
+
+	protected Condition notVisibleInPage(String locator) {
+		String message = "Element is visible in page at \"" + locator + "\"";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return !isVisibleInPage(locator);
+			}
+
+		};
+	}
+
+	protected Condition notVisibleInViewport(String locator) {
+		String message =
+			"Element is visible in viewport at \"" + locator + "\"";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return !isVisibleInViewport(locator);
+			}
+
+		};
+	}
+
+	protected Condition partialText(String locator, String value) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				WebElement webElement = getWebElement(locator);
+
+				String text = webElement.getText();
+
+				return text.contains(value);
+			}
+
+		};
+	}
+
+	protected Condition partialTextAceEditor(String locator, String value) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				WebElement webElement = getWebElement(locator);
+
+				String text = webElement.getText();
+
+				text = text.replace("\n", "");
+
+				return text.contains(value);
+			}
+
+		};
+	}
+
+	protected Condition partialTextCaseInsensitive(
+		String locator, String value) {
+
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				String actual = StringUtil.toUpperCase(getText(locator));
+
+				return actual.contains(StringUtil.toUpperCase(value));
+			}
+
+		};
+	}
+
 	protected void saveWebPage(String fileName, String htmlSource)
 		throws Exception {
 
@@ -4181,12 +4412,143 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		select.selectByIndex(index);
 	}
 
+	protected Condition selectedLabel(String selectLocator, String pattern) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				if (isElementNotPresent(selectLocator)) {
+					return false;
+				}
+
+				return pattern.equals(getSelectedLabel(selectLocator));
+			}
+
+		};
+	}
+
 	protected void setDefaultWindowHandle(String defaultWindowHandle) {
 		_defaultWindowHandle = defaultWindowHandle;
 	}
 
 	protected void setNavigationBarHeight(int navigationBarHeight) {
 		_navigationBarHeight = navigationBarHeight;
+	}
+
+	protected Condition text(String locator, String value) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return value.equals(getText(locator));
+			}
+
+		};
+	}
+
+	protected Condition textCaseInsensitive(String locator, String value) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				String actual = StringUtil.toUpperCase(getText(locator));
+
+				return actual.equals(StringUtil.toUpperCase(value));
+			}
+
+		};
+	}
+
+	protected Condition textNotPresent(String pattern) {
+		String message = "\"" + pattern + "\" is present";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return !isTextPresent(pattern);
+			}
+
+		};
+	}
+
+	protected Condition textPresent(String pattern) {
+		String message = "\"" + pattern + "\" is not present";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				WebElement webElement = getWebElement("//body");
+
+				String text = webElement.getText();
+
+				return text.contains(pattern);
+			}
+
+		};
+	}
+
+	protected Condition value(String locator, String value) {
+		return new Condition() {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return value.equals(getElementValue(locator));
+			}
+
+		};
+	}
+
+	protected Condition visible(String locator) {
+		String message = "Element is not visible at \"" + locator + "\"";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				return isVisibleInPage(locator);
+			}
+
+		};
+	}
+
+	protected Condition visibleInPage(String locator) {
+		String message =
+			"Element is not visible in page at \"" + locator + "\"";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				assertElementPresent(locator);
+
+				WebElement webElement = getWebElement(locator);
+
+				scrollWebElementIntoView(webElement);
+
+				return webElement.isDisplayed();
+			}
+
+		};
+	}
+
+	protected Condition visibleInViewport(String locator) {
+		String message =
+			"Element is not visible in viewport at \"" + locator + "\"";
+
+		return new Condition(message) {
+
+			@Override
+			public boolean evaluate() throws Exception {
+				assertElementPresent(locator);
+
+				WebElement webElement = getWebElement(locator);
+
+				return webElement.isDisplayed();
+			}
+
+		};
 	}
 
 	protected abstract class Condition {
