@@ -5,7 +5,7 @@ YUI.add(
 
 		var ATTR_DATA_BUTTON_LINK_ID = 'btnLinkId';
 
-		var ATTR_DATA_ERROR_LINK_ID = 'errorLinkId';
+		var ATTR_DATA_ERROR_LINK_ID = 'screenshotLinkId';
 
 		var ATTR_DATA_FUNCTION_LINK_ID = 'functionLinkId';
 
@@ -26,6 +26,8 @@ YUI.add(
 		var CSS_PENDING = 'pending';
 
 		var CSS_RUNNING = 'running';
+
+		var CSS_SCREENSHOT = 'screenshot';
 
 		var CSS_TOGGLE = 'toggle';
 
@@ -67,9 +69,11 @@ YUI.add(
 
 		var SELECTOR_FAILED = STR_DOT + CSS_FAILED;
 
+		var SELECTOR_SCREENSHOT = STR_DOT + CSS_SCREENSHOT;
+
 		var SELECTOR_WARNING = STR_DOT + CSS_WARNING;
 
-		var TPL_ERROR_BUTTONS = '<button class="btn {cssClass}" data-errorlinkid="{linkId}" onclick="loggerInterface.handleErrorBtns">' +
+		var TPL_ERROR_BUTTONS = '<button class="btn {cssClass}" data-screenshotlinkid="{linkId}" onclick="loggerInterface.handleErrorBtns">' +
 				'<div class="btn-content"></div>' +
 			'</button>';
 
@@ -98,7 +102,7 @@ YUI.add(
 
 							var syntaxLog = instance.get(STR_SYNTAX_LOG);
 
-							return syntaxLog.all(SELECTOR_FAIL + ', ' + SELECTOR_WARNING);
+							return syntaxLog.all(SELECTOR_FAIL + ', ' + SELECTOR_SCREENSHOT + ', ' + SELECTOR_WARNING);
 						}
 					},
 
@@ -116,7 +120,7 @@ YUI.add(
 
 					status: {
 						validator: Lang.isArray,
-						value: [CSS_FAIL, CSS_PASS, CSS_PENDING, CSS_WARNING]
+						value: [CSS_FAIL, CSS_PASS, CSS_PENDING, CSS_SCREENSHOT, CSS_WARNING]
 					},
 
 					transitioning: {
@@ -163,7 +167,7 @@ YUI.add(
 							instance._displayNode(linkedFunction);
 							instance._setSyntaxNodeClass(linkedFunction);
 
-							if (latestCommand.hasClass(CSS_FAILED) || latestCommand.hasClass(CSS_WARNING)) {
+							if (latestCommand.hasClass(CSS_FAILED) || latestCommand.hasClass(CSS_SCREENSHOT) || latestCommand.hasClass(CSS_WARNING)) {
 								instance._injectSyntaxError(latestCommand);
 							}
 						}
@@ -216,12 +220,12 @@ YUI.add(
 
 						var syntaxLog = instance.get(STR_SYNTAX_LOG);
 
-						var errorLinkId = currentTarget.getData(ATTR_DATA_ERROR_LINK_ID);
+						var screenshotLinkId = currentTarget.getData(ATTR_DATA_ERROR_LINK_ID);
 
-						var errorPanel = syntaxLog.one('.errorPanel[data-errorLinkId="' + errorLinkId + '"]');
+						var screenshotPanel = syntaxLog.one('.screenshotPanel[data-screenshotLinkId="' + screenshotLinkId + '"]');
 
-						if (errorPanel) {
-							errorPanel.toggleClass(CSS_TOGGLE);
+						if (screenshotPanel) {
+							screenshotPanel.toggleClass(CSS_TOGGLE);
 						}
 					},
 
@@ -434,7 +438,7 @@ YUI.add(
 					},
 
 					_clearSyntaxErrors: function(command) {
-						command.all('.errorPanel').remove();
+						command.all('.screenshotPanel').remove();
 
 						var btnContainer = command.one('.btn-container');
 
@@ -891,14 +895,14 @@ YUI.add(
 
 							newLogId = logId;
 
-							var commandErrors = commandLog.all(SELECTOR_FAILED + ', ' + SELECTOR_WARNING);
+							var commandErrors = commandLog.all(SELECTOR_FAILED + ', ' + SELECTOR_SCREENSHOT + ', ' + SELECTOR_WARNING);
 
 							commandErrors.each(instance._injectSyntaxError, instance);
 						}
 						else {
 							newLogId = null;
 
-							var errors = instance.get(STR_SYNTAX_LOG).all(SELECTOR_FAIL + ', ' + SELECTOR_WARNING);
+							var errors = instance.get(STR_SYNTAX_LOG).all(SELECTOR_FAIL + ', ' + SELECTOR_SCREENSHOT + ', ' + SELECTOR_WARNING);
 
 							if (errors.size()) {
 								errors.each(instance._clearSyntaxErrors);
@@ -909,7 +913,7 @@ YUI.add(
 
 						instance._toggleSyntaxLogClasses(logId);
 
-						var errorNodes = instance.get(STR_SYNTAX_LOG).all(SELECTOR_FAIL + ', ' + SELECTOR_WARNING);
+						var errorNodes = instance.get(STR_SYNTAX_LOG).all(SELECTOR_FAIL + ', ' + SELECTOR_SCREENSHOT + ', ' + SELECTOR_WARNING);
 
 						instance.set(STR_ERRORS, errorNodes);
 

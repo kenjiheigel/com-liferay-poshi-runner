@@ -219,6 +219,9 @@ public class PoshiRunnerExecutor {
 			else if (childElementName.equals("task")) {
 				runTaskElement(childElement);
 			}
+			else if (childElementName.equals("take-screenshot")) {
+				runTakeScreenshotElement(childElement);
+			}
 			else if (childElementName.equals("var")) {
 				runCommandVarElement(childElement, true);
 			}
@@ -562,7 +565,7 @@ public class PoshiRunnerExecutor {
 
 					SummaryLogger.failSummary(
 						_functionExecuteElement, t.getMessage(),
-						_poshiLogger.getErrorLinkId());
+						_poshiLogger.getScreenshotLinkId());
 
 					_poshiLogger.failCommand(_functionExecuteElement);
 
@@ -804,7 +807,7 @@ public class PoshiRunnerExecutor {
 		}
 		catch (Exception e) {
 			SummaryLogger.failSummary(
-				executeElement, e.getMessage(), _poshiLogger.getErrorLinkId());
+				executeElement, e.getMessage(), _poshiLogger.getScreenshotLinkId());
 
 			throw e;
 		}
@@ -1021,6 +1024,12 @@ public class PoshiRunnerExecutor {
 			method, arguments.toArray(new String[0]));
 	}
 
+	public void runTakeScreenshotElement(Element element) throws Exception {
+		PoshiRunnerStackTraceUtil.setCurrentElement(element);
+
+		_poshiLogger.takeScreenshotCommand(element);
+	}
+
 	public void runTaskElement(Element element) throws Exception {
 		PoshiRunnerStackTraceUtil.setCurrentElement(element);
 
@@ -1031,7 +1040,7 @@ public class PoshiRunnerExecutor {
 		}
 		catch (Exception e) {
 			SummaryLogger.failSummary(
-				element, e.getMessage(), _poshiLogger.getErrorLinkId());
+				element, e.getMessage(), _poshiLogger.getScreenshotLinkId());
 
 			throw e;
 		}

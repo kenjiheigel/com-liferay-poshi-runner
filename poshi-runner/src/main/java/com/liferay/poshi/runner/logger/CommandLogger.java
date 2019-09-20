@@ -66,8 +66,8 @@ public final class CommandLogger {
 		return _commandLogLoggerElement.toString();
 	}
 
-	public int getErrorLinkId() {
-		return _errorLinkId - 1;
+	public int getScreenshotLinkId() {
+		return _screenshotLinkId - 1;
 	}
 
 	public void logExternalMethodCommand(
@@ -139,7 +139,7 @@ public final class CommandLogger {
 		}
 
 		try {
-			_takeScreenshot("before", _errorLinkId);
+			_takeScreenshot("before", _screenshotLinkId);
 
 			_commandElement = element;
 
@@ -147,6 +147,29 @@ public final class CommandLogger {
 
 			_commandLogLoggerElement.addChildLoggerElement(
 				lineGroupLoggerElement);
+		}
+		catch (Throwable t) {
+			throw new PoshiRunnerLoggerException(t.getMessage(), t);
+		}
+	}
+
+	public void takeScreenshotCommand(
+			Element element, SyntaxLogger syntaxLogger)
+		throws PoshiRunnerLoggerException {
+
+		try {
+			_takeScreenshot("screenshot", _screenshotLinkId);
+
+			_commandElement = element;
+
+			lineGroupLoggerElement = _getMessageGroupLoggerElement(element);
+
+			_commandLogLoggerElement.addChildLoggerElement(
+				lineGroupLoggerElement);
+
+			_commandElement = null;
+
+			_screenshotLineGroupLoggerElement(lineGroupLoggerElement);
 		}
 		catch (Throwable t) {
 			throw new PoshiRunnerLoggerException(t.getMessage(), t);
@@ -195,6 +218,31 @@ public final class CommandLogger {
 		}
 	}
 
+	private LoggerElement _getBasicConsoleLoggerElement(int screenshotLinkId) {
+		LoggerElement loggerElement = new LoggerElement();
+
+		loggerElement.setAttribute(
+			"data-screenshotlinkid", "console-" + screenshotLinkId);
+		loggerElement.setClassName("console screenshotPanel toggle");
+
+		return loggerElement;
+	}
+
+	private LoggerElement _getBasicScreenshotsLoggerElement(int screenshotLinkId)
+		throws Exception {
+
+		LoggerElement loggerElement = new LoggerElement();
+
+		loggerElement.setAttribute(
+			"data-screenshotlinkid", "screenshots-" + screenshotLinkId);
+		loggerElement.setClassName("screenshotPanel screenshots toggle");
+
+		loggerElement.addChildLoggerElement(
+			_getScreenshotContainerLoggerElement("screenshot", screenshotLinkId));
+
+		return loggerElement;
+	}
+
 	private LoggerElement _getButtonLoggerElement(int btnLinkId) {
 		LoggerElement loggerElement = new LoggerElement();
 
@@ -214,12 +262,12 @@ public final class CommandLogger {
 		return loggerElement;
 	}
 
-	private LoggerElement _getConsoleLoggerElement(int errorLinkId) {
+	private LoggerElement _getConsoleLoggerElement(int screenshotLinkId) {
 		LoggerElement loggerElement = new LoggerElement();
 
 		loggerElement.setAttribute(
-			"data-errorlinkid", "console-" + errorLinkId);
-		loggerElement.setClassName("console errorPanel toggle");
+			"data-screenshotlinkid", "console-" + screenshotLinkId);
+		loggerElement.setClassName("console screenshotPanel toggle");
 
 		loggerElement.addChildLoggerElement(
 			SummaryLogger.getSummarySnapshotLoggerElement());
@@ -244,12 +292,12 @@ public final class CommandLogger {
 		loggerElement.setClassName("error-container hidden");
 
 		loggerElement.addChildLoggerElement(
-			_getConsoleLoggerElement(_errorLinkId));
+			_getConsoleLoggerElement(_screenshotLinkId));
 
 		loggerElement.addChildLoggerElement(
-			_getScreenshotsLoggerElement(_errorLinkId));
+			_getScreenshotsLoggerElement(_screenshotLinkId));
 
-		_errorLinkId++;
+		_screenshotLinkId++;
 
 		return loggerElement;
 	}
@@ -406,7 +454,13 @@ public final class CommandLogger {
 		LoggerElement loggerElement = new LoggerElement();
 
 		loggerElement.setClassName("line-container");
-		loggerElement.setText(_getMessageContainerText(element));
+
+		if (element.getName().equals("take-screenshot")) {
+			loggerElement.setText("Taking screenshot");
+		}
+		else {
+			loggerElement.setText(_getMessageContainerText(element));
+		}
 
 		return loggerElement;
 	}
@@ -474,15 +528,31 @@ public final class CommandLogger {
 		return sb.toString();
 	}
 
+	private LoggerElement _getScreenshotContainerLoggerElement()
+		throws Exception {
+
+		LoggerElement loggerElement = new LoggerElement();
+
+		loggerElement.addChildLoggerElement(
+			_getBasicConsoleLoggerElement(_screenshotLinkId));
+
+		loggerElement.addChildLoggerElement(
+			_getBasicScreenshotsLoggerElement(_screenshotLinkId));
+
+		_screenshotLinkId++;
+
+		return loggerElement;
+	}
+
 	private LoggerElement _getScreenshotContainerLoggerElement(
-		String screenshotName, int errorLinkId) {
+		String screenshotName, int screenshotLinkId) {
 
 		LoggerElement loggerElement = new LoggerElement();
 
 		loggerElement.setClassName(screenshotName + " screenshot-container");
 
 		loggerElement.addChildLoggerElement(
-			_getScreenshotLoggerElement(screenshotName, errorLinkId));
+			_getScreenshotLoggerElement(screenshotName, screenshotLinkId));
 
 		loggerElement.addChildLoggerElement(
 			_getScreenshotSpanLoggerElement(
@@ -492,34 +562,34 @@ public final class CommandLogger {
 	}
 
 	private LoggerElement _getScreenshotLoggerElement(
-		String screenshotName, int errorLinkId) {
+		String screenshotName, int screenshotLinkId) {
 
 		LoggerElement loggerElement = new LoggerElement();
 
-		loggerElement.setAttribute("alt", screenshotName + errorLinkId);
+		loggerElement.setAttribute("alt", screenshotName + screenshotLinkId);
 		loggerElement.setAttribute(
-			"src", "screenshots/" + screenshotName + errorLinkId + ".jpg");
+			"src", "screenshots/" + screenshotName + screenshotLinkId + ".jpg");
 		loggerElement.setName("img");
 
 		return loggerElement;
 	}
 
-	private LoggerElement _getScreenshotsLoggerElement(int errorLinkId)
+	private LoggerElement _getScreenshotsLoggerElement(int screenshotLinkId)
 		throws Exception {
 
 		LoggerElement loggerElement = new LoggerElement();
 
 		loggerElement.setAttribute(
-			"data-errorlinkid", "screenshots-" + errorLinkId);
-		loggerElement.setClassName("errorPanel screenshots toggle");
+			"data-screenshotlinkid", "screenshots-" + screenshotLinkId);
+		loggerElement.setClassName("screenshotPanel screenshots toggle");
 
 		loggerElement.addChildLoggerElement(
-			_getScreenshotContainerLoggerElement("before", errorLinkId));
+			_getScreenshotContainerLoggerElement("before", screenshotLinkId));
 
-		_takeScreenshot("after", errorLinkId);
+		_takeScreenshot("after", screenshotLinkId);
 
 		loggerElement.addChildLoggerElement(
-			_getScreenshotContainerLoggerElement("after", errorLinkId));
+			_getScreenshotContainerLoggerElement("after", screenshotLinkId));
 
 		return loggerElement;
 	}
@@ -580,7 +650,17 @@ public final class CommandLogger {
 		_functionLinkId++;
 	}
 
-	private void _takeScreenshot(String screenshotName, int errorLinkId)
+	private void _screenshotLineGroupLoggerElement(
+			LoggerElement lineGroupLoggerElement)
+		throws Exception {
+
+		lineGroupLoggerElement.addClassName("screenshot");
+
+		lineGroupLoggerElement.addChildLoggerElement(
+			_getScreenshotContainerLoggerElement());
+	}
+
+	private void _takeScreenshot(String screenshotName, int screenshotLinkId)
 		throws Exception {
 
 		String testClassCommandName =
@@ -592,7 +672,7 @@ public final class CommandLogger {
 		LiferaySeleniumHelper.captureScreen(
 			FileUtil.getCanonicalPath(".") + "/test-results/" +
 				testClassCommandName + "/screenshots/" + screenshotName +
-					errorLinkId + ".jpg");
+					screenshotLinkId + ".jpg");
 	}
 
 	private void _warningLineGroupLoggerElement(
@@ -621,7 +701,7 @@ public final class CommandLogger {
 	private int _btnLinkId;
 	private Element _commandElement;
 	private final LoggerElement _commandLogLoggerElement;
-	private int _errorLinkId;
+	private int _screenshotLinkId;
 	private int _functionLinkId;
 
 }
