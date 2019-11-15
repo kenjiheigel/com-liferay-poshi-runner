@@ -144,7 +144,8 @@ public class WebDriverUtil extends PropsValues {
 		chromeOptions.setExperimentalOption("prefs", preferences);
 
 		if (Validator.isNotNull(PropsValues.BROWSER_CHROME_BIN_ARGS)) {
-			chromeOptions.addArguments(PropsValues.BROWSER_CHROME_BIN_ARGS);
+			chromeOptions.addArguments(
+				PropsValues.BROWSER_CHROME_BIN_ARGS.split(" "));
 		}
 
 		if (Validator.isNotNull(PropsValues.BROWSER_CHROME_BIN_FILE)) {
