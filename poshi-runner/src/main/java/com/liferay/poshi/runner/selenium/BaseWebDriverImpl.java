@@ -1383,6 +1383,11 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 	}
 
 	@Override
+	public String getTestName() {
+		return PoshiRunnerContext.getTestCaseNamespacedClassCommandName();
+	}
+
+	@Override
 	public String getText(String locator) throws Exception {
 		return getText(locator, null);
 	}
