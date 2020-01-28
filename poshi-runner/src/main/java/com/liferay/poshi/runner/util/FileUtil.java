@@ -80,6 +80,20 @@ public class FileUtil {
 		}
 	}
 
+	public static void createNewFile(String fileName, String string)
+		throws IOException {
+
+		File file = new File(fileName);
+
+		if (file.exists()) {
+			file.delete();
+		}
+
+		file.createNewFile();
+
+		write(file, string);
+	}
+
 	public static boolean exists(File file) {
 		return file.exists();
 	}
