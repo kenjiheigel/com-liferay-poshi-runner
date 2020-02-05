@@ -336,7 +336,7 @@ property portal.release = "true";
 ## Using Poshi functions, Poshi macros, and Java methods
 
 Within the Poshi file structure of a project, all reusable code that can be
-defined by test writers is contained in `.function` and `.macro`  files. Poshi
+defined by test writers is contained in `.function` and `.macro` files. Poshi
 functions should be the simplest and smallest unit of reusable code (typically
 pertaining to an interaction with the HTML element), while the Poshi macros
 store larger units of code that group together several Poshi functions (which
@@ -1155,15 +1155,15 @@ issue.
 ```
 [exec] Unexpected closing boundary at:
 [exec] /Users/kenji/Projects/github/liferay-portal/master/portal-web/test/functional/com/liferay/portalweb/tests/enduser/wem/pages/contentpages/ContentPages.testcase:319
-[exec]             ); ]
-[exec]                ^
+[exec] ); ]
+[exec] ^
 ```
 
 ```
 [exec] Unmatched opening boundary at:
 [exec] /Users/kenji/Projects/github/liferay-portal/master/portal-web/test/functional/com/liferay/portalweb/tests/enduser/wem/pages/contentpages/ContentPages.testcase:2
 [exec] definition {
-[exec]            ^
+[exec] ^
 ```
 
 #### Invalid Poshi Script syntax
@@ -1179,13 +1179,13 @@ currently available, but will be made available in the future.
 [exec] /Users/kenji/Projects/github/liferay-portal/master/portal-web/test/functional/com/liferay/portalweb/tests/enduser/wem/pages/contentpages/ContentPages.testcase:313
 [exec]
 [exec]
-[exec]         task ("Click away from the header so the popover will disappear") {
-[exec]             Click(
-[exec]                 locator1 = "PageEditor#EMPTY_MESSAGE"
-[exec]             )
+[exec] task ("Click away from the header so the popover will disappear") {
+[exec] Click(
+[exec] locator1 = "PageEditor#EMPTY_MESSAGE"
+[exec] )
 [exec]
-[exec]             AssertElementNotPresent(
-[exec]                 locator1 = "PageEditor#CONTENT_PAGE_DISABLED_POPOVER"
-[exec]             );
-[exec]         }
+[exec] AssertElementNotPresent(
+[exec] locator1 = "PageEditor#CONTENT_PAGE_DISABLED_POPOVER"
+[exec] );
+[exec] }
 ```
