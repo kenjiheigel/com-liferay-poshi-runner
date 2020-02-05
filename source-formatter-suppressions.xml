@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 
 <suppressions>
+	<checkstyle>
+		<suppress checks="BuilderCheck" files=".*" />
+	</checkstyle>
 	<source-check>
 		<suppress checks="JavaMultiPlusConcatCheck" files=".*" />
 		<suppress checks="JavaStylingCheck" files="poshi-runner/src/test/java/com/liferay/poshi/runner/pql/PQLEntityFactoryTest\.java" />
