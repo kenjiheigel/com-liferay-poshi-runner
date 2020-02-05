@@ -269,9 +269,9 @@ public abstract class PoshiElement
 				validatePoshiScript();
 			}
 		}
-		catch (PoshiScriptParserException pspe) {
+		catch (PoshiScriptParserException poshiScriptParserException) {
 			if (PoshiNodeFactory.getValidatePoshiScript()) {
-				System.out.println(pspe.getMessage());
+				System.out.println(poshiScriptParserException.getMessage());
 			}
 		}
 
@@ -439,8 +439,8 @@ public abstract class PoshiElement
 		try {
 			return getMethodParameters(content, null);
 		}
-		catch (PoshiScriptParserException pspe) {
-			pspe.printStackTrace();
+		catch (PoshiScriptParserException poshiScriptParserException) {
+			poshiScriptParserException.printStackTrace();
 
 			return new ArrayList<>();
 		}
@@ -731,7 +731,7 @@ public abstract class PoshiElement
 		try {
 			return isBalancedPoshiScript(poshiScript, false);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			return false;
 		}
 	}
@@ -914,7 +914,7 @@ public abstract class PoshiElement
 				return true;
 			}
 		}
-		catch (IllegalArgumentException iae) {
+		catch (IllegalArgumentException illegalArgumentException) {
 			return false;
 		}
 

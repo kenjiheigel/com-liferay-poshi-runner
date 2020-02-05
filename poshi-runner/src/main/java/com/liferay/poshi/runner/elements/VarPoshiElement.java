@@ -367,8 +367,9 @@ public class VarPoshiElement extends PoshiElement {
 			throw new IllegalArgumentException(
 				"Invalid variable element " + Dom4JUtil.format(element));
 		}
-		catch (IOException ioe) {
-			throw new IllegalArgumentException("Invalid variable element", ioe);
+		catch (IOException ioException) {
+			throw new IllegalArgumentException(
+				"Invalid variable element", ioException);
 		}
 	}
 

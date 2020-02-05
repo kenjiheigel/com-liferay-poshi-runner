@@ -1545,12 +1545,12 @@ public class PoshiRunnerContext {
 				reportLineItems.clear();
 			}
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			if (reportCSVFile.exists()) {
 				reportCSVFile.deleteOnExit();
 			}
 
-			throw new RuntimeException(ioe);
+			throw new RuntimeException(ioException);
 		}
 	}
 
@@ -1710,8 +1710,8 @@ public class PoshiRunnerContext {
 					}
 				}
 			}
-			catch (Exception e) {
-				e.printStackTrace();
+			catch (Exception exception) {
+				exception.printStackTrace();
 			}
 
 			return _url;

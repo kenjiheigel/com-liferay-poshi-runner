@@ -215,11 +215,11 @@ public class HttpRequestUtil {
 					return new HttpResponse(null, errorMessage, responseCode);
 				}
 			}
-			catch (IOException ioe) {
+			catch (IOException ioException) {
 				retryCount++;
 
 				if ((maxRetries >= 0) && (retryCount >= maxRetries)) {
-					throw ioe;
+					throw ioException;
 				}
 
 				System.out.println(

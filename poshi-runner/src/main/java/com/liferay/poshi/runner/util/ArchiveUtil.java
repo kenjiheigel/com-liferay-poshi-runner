@@ -92,8 +92,8 @@ public class ArchiveUtil {
 
 							zipOutputStream.closeEntry();
 						}
-						catch (IOException ioe) {
-							ioe.printStackTrace();
+						catch (IOException ioException) {
+							ioException.printStackTrace();
 						}
 
 						return FileVisitResult.CONTINUE;
@@ -105,9 +105,10 @@ public class ArchiveUtil {
 				Paths.get(tmpFile.getCanonicalPath()),
 				Paths.get(targetFile.getCanonicalPath()));
 		}
-		catch (IOException ioe) {
+		catch (IOException ioException) {
 			throw new RuntimeException(
-				"Unable to archive " + sourceFile + " to " + targetFile, ioe);
+				"Unable to archive " + sourceFile + " to " + targetFile,
+				ioException);
 		}
 	}
 

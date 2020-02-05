@@ -132,7 +132,7 @@ public class RuntimeVariables {
 					varValue = varValue.replaceFirst(
 						"\\$\\{([^}]*?)\\}", result);
 				}
-				catch (Exception e) {
+				catch (Exception exception) {
 				}
 			}
 			else {

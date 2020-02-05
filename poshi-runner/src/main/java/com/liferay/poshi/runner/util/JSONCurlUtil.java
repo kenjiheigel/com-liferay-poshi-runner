@@ -367,7 +367,7 @@ public class JSONCurlUtil {
 
 					optionValue = jsonObject.toString();
 				}
-				catch (JSONException jsone) {
+				catch (JSONException jsonException) {
 					throw new RuntimeException(
 						"Invalid JSON: '" + optionValue + "'");
 				}
@@ -382,7 +382,7 @@ public class JSONCurlUtil {
 
 				return true;
 			}
-			catch (JSONException jsone) {
+			catch (JSONException jsonException) {
 				return false;
 			}
 		}

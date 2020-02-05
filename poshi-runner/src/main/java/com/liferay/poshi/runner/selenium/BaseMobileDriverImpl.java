@@ -56,7 +56,7 @@ public abstract class BaseMobileDriverImpl
 		try {
 			tap(locator);
 		}
-		catch (Exception e) {
+		catch (Exception exception) {
 			if (!isInViewport(locator)) {
 				swipeWebElementIntoView(locator);
 			}

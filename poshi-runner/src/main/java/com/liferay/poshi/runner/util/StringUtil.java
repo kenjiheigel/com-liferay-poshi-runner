@@ -920,8 +920,8 @@ public class StringUtil {
 			return s.substring(
 				Integer.parseInt(startIndex), Integer.parseInt(endIndex));
 		}
-		catch (IndexOutOfBoundsException | NumberFormatException e) {
-			e.printStackTrace();
+		catch (IndexOutOfBoundsException | NumberFormatException exception) {
+			exception.printStackTrace();
 
 			return s;
 		}
