@@ -502,10 +502,10 @@ public abstract class PoshiElement
 		String name = assignment.split("=")[0];
 
 		name = name.trim();
-		name = name.replace("@", "");
-		name = name.replace("property ", "");
+		name = StringUtil.replace(name, "@", "");
+		name = StringUtil.replace(name, "property ", "");
 
-		return name.replace("var ", "");
+		return StringUtil.replace(name, "var ", "");
 	}
 
 	protected List<String> getNestedConditions(
@@ -942,12 +942,13 @@ public abstract class PoshiElement
 			!poshiScriptSnippet.contains("/*") &&
 			!poshiScriptSnippet.contains("*/")) {
 
-			poshiScriptSnippet = poshiScriptSnippet.replace(
-				"\n", "\n" + getPad());
+			poshiScriptSnippet = StringUtil.replace(
+				poshiScriptSnippet, "\n", "\n" + getPad());
 
-			poshiScriptSnippet = poshiScriptSnippet.replace("\n\t\n", "\n\n");
+			poshiScriptSnippet = StringUtil.replace(
+				poshiScriptSnippet, "\n\t\n", "\n\n");
 
-			return poshiScriptSnippet.replace("\n\n\n", "\n\n");
+			return StringUtil.replace(poshiScriptSnippet, "\n\n\n", "\n\n");
 		}
 
 		Stack<String> stack = new Stack<>();

@@ -171,8 +171,8 @@ public class JSONCurlUtil {
 
 				_curlDataMap.put(key, matcher.group(1));
 
-				encodedRequestString = encodedRequestString.replace(
-					matcher.group(0), key);
+				encodedRequestString = StringUtil.replace(
+					encodedRequestString, matcher.group(0), key);
 			}
 
 			return encodedRequestString;
@@ -334,7 +334,7 @@ public class JSONCurlUtil {
 
 				optionValue = optionValue.replaceAll("(?<!\\\\)\"", "\\\\\\\"");
 
-				optionValue = optionValue.replace("&", "^&");
+				optionValue = StringUtil.replace(optionValue, "&", "^&");
 
 				sb.append(optionValue);
 

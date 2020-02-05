@@ -493,7 +493,7 @@ public class StringUtil {
 
 			String uuidString = randomUUID.toString();
 
-			sb.append(uuidString.replace("-", ""));
+			sb.append(replace(uuidString, "-", ""));
 		}
 
 		return sb.substring(0, lengthInt);

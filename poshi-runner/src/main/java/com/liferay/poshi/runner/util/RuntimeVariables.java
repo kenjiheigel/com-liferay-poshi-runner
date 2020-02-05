@@ -113,8 +113,9 @@ public class RuntimeVariables {
 					result = StringUtil.toLowerCase(operandValue);
 				}
 				else if (method.startsWith("replace")) {
-					result = operandValue.replace(
-						argumentsList.get(0), argumentsList.get(1));
+					result = StringUtil.replace(
+						operandValue, argumentsList.get(0),
+						argumentsList.get(1));
 				}
 				else if (method.startsWith("uppercase")) {
 					result = StringUtil.toUpperCase(operandValue);
@@ -151,9 +152,9 @@ public class RuntimeVariables {
 			}
 		}
 
-		varValue = varValue.replace("\\$", "$");
-		varValue = varValue.replace("\\{", "{");
-		varValue = varValue.replace("\\}", "}");
+		varValue = StringUtil.replace(varValue, "\\$", "$");
+		varValue = StringUtil.replace(varValue, "\\{", "{");
+		varValue = StringUtil.replace(varValue, "\\}", "}");
 
 		return varValue;
 	}

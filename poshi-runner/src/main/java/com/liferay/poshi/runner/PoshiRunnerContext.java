@@ -1675,7 +1675,7 @@ public class PoshiRunnerContext {
 					filePath = filePath.substring(1);
 				}
 
-				filePath = filePath.replace("/", "\\");
+				filePath = StringUtil.replace(filePath, "/", "\\");
 			}
 
 			String fileName = PoshiRunnerGetterUtil.getFileNameFromFilePath(
@@ -1702,11 +1702,11 @@ public class PoshiRunnerContext {
 
 					if (fileName.endsWith(".function")) {
 						_functionFileNames.add(
-							fileName.replace(".function", ""));
+							StringUtil.replace(fileName, ".function", ""));
 
 						_functionFileNames.add(
 							_namespace + "." +
-								fileName.replace(".function", ""));
+								StringUtil.replace(fileName, ".function", ""));
 					}
 				}
 			}

@@ -1405,7 +1405,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		text = text.trim();
 
-		return text.replace("\n", " ");
+		return StringUtil.replace(text, "\n", " ");
 	}
 
 	public String getTextAceEditor(String locator) throws Exception {
@@ -1421,7 +1421,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		text = text.trim();
 
-		return text.replace("\n", "");
+		return StringUtil.replace(text, "\n", "");
 	}
 
 	@Override
@@ -1831,7 +1831,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 		text = text.trim();
 
-		return text.replace("\n", " ");
+		return StringUtil.replace(text, "\n", " ");
 	}
 
 	@Override
@@ -2909,7 +2909,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		sb.append("ace.edit(");
 		sb.append(getAttribute(locator + "@id"));
 		sb.append(").setValue(\"");
-		sb.append(HtmlUtil.escapeJS(value.replace("\\", "\\\\")));
+		sb.append(HtmlUtil.escapeJS(StringUtil.replace(value, "\\", "\\\\")));
 		sb.append("\");");
 
 		javascriptExecutor.executeScript(sb.toString());
@@ -2943,7 +2943,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		sb.append(titleAttribute.substring(x + 2, y));
 
 		sb.append("\"].setData(\"");
-		sb.append(HtmlUtil.escapeJS(value.replace("\\", "\\\\")));
+		sb.append(HtmlUtil.escapeJS(StringUtil.replace(value, "\\", "\\\\")));
 		sb.append("\");");
 
 		javascriptExecutor.executeScript(sb.toString());
@@ -2966,7 +2966,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		sb.append(idAttribute.substring(x + 4, y));
 
 		sb.append(".setHTML(\"");
-		sb.append(HtmlUtil.escapeJS(value.replace("\\", "\\\\")));
+		sb.append(HtmlUtil.escapeJS(StringUtil.replace(value, "\\", "\\\\")));
 		sb.append("\")");
 
 		runScript(sb.toString());
@@ -2984,7 +2984,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		sb.append("CKEDITOR.instances[\"");
 		sb.append(getEditorName(locator));
 		sb.append("\"].setData(\"");
-		sb.append(HtmlUtil.escapeJS(value.replace("\\", "\\\\")));
+		sb.append(HtmlUtil.escapeJS(StringUtil.replace(value, "\\", "\\\\")));
 		sb.append("\");");
 
 		javascriptExecutor.executeScript(sb.toString());
@@ -3889,7 +3889,7 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 
 				String text = webElement.getText();
 
-				text = text.replace("\n", "");
+				text = StringUtil.replace(text, "\n", "");
 
 				return text.contains(value);
 			}
@@ -4330,7 +4330,9 @@ public abstract class BaseWebDriverImpl implements LiferaySelenium, WebDriver {
 		sb.append(getCSSSource(htmlSource));
 		sb.append("</style></html>");
 
-		FileUtil.write(fileName, htmlSource.replace("<\\html>", sb.toString()));
+		FileUtil.write(
+			fileName,
+			StringUtil.replace(htmlSource, "<\\html>", sb.toString()));
 	}
 
 	protected void scrollWebElementIntoView(WebElement webElement) {

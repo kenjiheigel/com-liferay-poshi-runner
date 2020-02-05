@@ -80,8 +80,8 @@ public class ArchiveUtil {
 							String targetFilePathString =
 								targetFilePath.toString();
 
-							targetFilePathString = targetFilePathString.replace(
-								"\\", "/");
+							targetFilePathString = StringUtil.replace(
+								targetFilePathString, "\\", "/");
 
 							zipOutputStream.putNextEntry(
 								new ZipEntry(targetFilePathString));
