@@ -1147,9 +1147,7 @@ public class PoshiRunnerExecutor {
 			Callable<?> callable, String description, long timeoutSeconds)
 		throws Exception {
 
-		ExecutorService executorService = Executors.newSingleThreadExecutor();
-
-		Future<?> future = executorService.submit(callable);
+		Future<?> future = _executorService.submit(callable);
 
 		try {
 			return future.get(timeoutSeconds, TimeUnit.SECONDS);
@@ -1354,6 +1352,8 @@ public class PoshiRunnerExecutor {
 	private static final Pattern _variablePattern = Pattern.compile(
 		"\\$\\{([^}]*)\\}");
 
+	private ExecutorService _executorService =
+		Executors.newSingleThreadExecutor();
 	private Element _functionExecuteElement;
 	private String _functionWarningMessage;
 	private Object _macroReturnValue;
